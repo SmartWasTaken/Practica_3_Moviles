@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b39ae3f4457144794a6a33eaa3955a, type: 3}
+  m_Name: ButtonHover
+  m_EditorClassIdentifier: Assembly-CSharp::_Game.Scripts.Core.Audio.SoundData
+  id: button_hover
+  clip: {fileID: 8300000, guid: 1f9dd0e432b91bd4d98b0c2c6777b5dc, type: 3}
+  volume: 1
+  pitch: 1
+  randomPitch: 0
+  pitchVariance: 0.1
