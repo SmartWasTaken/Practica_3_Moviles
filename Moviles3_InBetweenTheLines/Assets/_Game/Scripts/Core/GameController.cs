@@ -1,78 +1,77 @@
 using UnityEngine;
-using TMPro; 
-using UnityEngine.UI;
 using System.Collections.Generic;
 using _Game.Scripts.Data;
-using _Game.Scripts.Puzzles;
-
+using _Game.Scripts.Core.Game;
 
 namespace _Game.Scripts.Core
 {
     public class GameController : MonoBehaviour
     {
-        [Header("Referencias UI")]
-        [SerializeField] private TextMeshProUGUI riddleTextLabel;
-        [SerializeField] private Image backgroundPanel;
-        [SerializeField] private Transform puzzleSpawnPoint; 
+        [Header("El Ejecutor")]
+        [SerializeField] private LevelManager _levelManager;
 
-        [Header("Configuración Niveles")]
-        [SerializeField] private List<LevelConfig> allLevels; 
+        [Header("La Lista de Reproducción")]
+        [SerializeField] private List<LevelConfig> _allLevels; 
 
-        private int currentLevelIndex = 0;
-        private PuzzleBase currentPuzzleInstance;
+        private int _currentLevelIndex = 0;
 
-        void Start()
+        private void Start()
         {
-            if(allLevels == null || allLevels.Count == 0)
+            if(_allLevels == null || _allLevels.Count == 0)
             {
-                Debug.LogWarning("¡No has asignado niveles en el GameController!");
+                Debug.LogWarning("GameController: No hay niveles en la lista.");
                 return;
             }
 
-            LoadLevel(currentLevelIndex);
+            // Nos suscribimos al evento del LevelManager
+            // "Cuando termines un nivel, avísame a la función OnLevelFinished"
+            _levelManager.OnLevelFinished += HandleLevelFinished;
+
+            // Cargamos el primero
+            LoadCurrentLevel();
         }
 
-        void LoadLevel(int index)
+        private void OnDestroy()
         {
-            if (index >= allLevels.Count)
+            if (_levelManager != null)
             {
-                Debug.Log("¡Juego Completado!");
-                if(riddleTextLabel != null) riddleTextLabel.text = "FIN DEL JUEGO";
+                _levelManager.OnLevelFinished -= HandleLevelFinished;
+            }
+        }
+
+        private void LoadCurrentLevel()
+        {
+            if (_currentLevelIndex >= _allLevels.Count)
+            {
+                Debug.Log("¡JUEGO COMPLETADO! No quedan más niveles.");
+                // Aquí podríamos cargar la escena del Menú Principal o el RANKING
+                // SceneManager.LoadScene("MenuScene");
                 return;
             }
 
-            LevelConfig data = allLevels[index];
+            // Obtenemos los datos del nivel actual
+            LevelConfig config = _allLevels[_currentLevelIndex];
 
-            if(riddleTextLabel != null) riddleTextLabel.text = data.riddleText;
-            if(backgroundPanel != null) backgroundPanel.color = data.backgroundColor;
+            // LE ORDENAMOS AL LEVEL MANAGER QUE LO CARGUE
+            // El GameController ya no toca prefabs ni textos, delega everything.
+            _levelManager.LoadLevel(config);
+        }
 
-            if (currentPuzzleInstance != null)
+        // Esta función se llama automáticamente cuando LevelManager termina su trabajo
+        private void HandleLevelFinished(bool playerWon)
+        {
+            if (playerWon)
             {
-                Destroy(currentPuzzleInstance.gameObject);
-            }
-
-            if (data.puzzlePrefab != null)
-            {
-                currentPuzzleInstance = Instantiate(data.puzzlePrefab, puzzleSpawnPoint);
-                currentPuzzleInstance.OnLevelCompleted += HandleLevelCompleted;
-                currentPuzzleInstance.Initialize();
+                // Si ganó, sumamos índice y cargamos el siguiente
+                _currentLevelIndex++;
+                LoadCurrentLevel();
             }
             else
             {
-                Debug.LogError($"El nivel {index} no tiene un Prefab asignado en su configuración.");
+                // Si perdió, recargamos el mismo nivel (Retry)
+                Debug.Log("Reintentando nivel...");
+                LoadCurrentLevel();
             }
-        }
-
-        private void HandleLevelCompleted()
-        {
-            if (currentPuzzleInstance != null)
-            {
-                currentPuzzleInstance.OnLevelCompleted -= HandleLevelCompleted;
-                Destroy(currentPuzzleInstance.gameObject);
-            }
-
-            currentLevelIndex++;
-            LoadLevel(currentLevelIndex);
         }
     }
 }

@@ -15,3 +15,4 @@ MonoBehaviour:
   riddleText: "\xA1Tengo poca energ\xEDa!"
   backgroundColor: {r: 0, g: 1, b: 0.48627454, a: 1}
   puzzlePrefab: {fileID: 1196531482329518414, guid: 72d24e1837c291247856d58d041692f9, type: 3}
+  timeLimit: 5

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using _Game.Scripts.Data;
 
 namespace _Game.Scripts.Core.Menu
 {
@@ -10,10 +11,15 @@ namespace _Game.Scripts.Core.Menu
         public GameObject modeSelectorPanel;
         public GameObject settingsPanel;
         public GameObject creditsPanel;
+        public GameObject rankingPanel;
 
         [Header("Visual Juice")]
         public float parallaxStrength = 15f;
+        public GameObject mainParallaxObject; 
         public Camera uiCamera;
+
+        [Header("Data")]
+        public List<LevelConfig> allLevels;
 
         private IMenuState _currentState;
 
@@ -21,13 +27,15 @@ namespace _Game.Scripts.Core.Menu
         public ModeSelectState ModeSelectState { get; private set; }
         public SettingsState SettingsState { get; private set; }
         public CreditsState CreditsState { get; private set; }
+        public RankingState RankingState { get; private set; }
 
         private void Awake()
         {
-            MainState = new MainState(this, mainPanel);
+            MainState = new MainState(this, mainPanel, mainParallaxObject);
             ModeSelectState = new ModeSelectState(this, modeSelectorPanel);
             SettingsState = new SettingsState(this, settingsPanel);
             CreditsState = new CreditsState(this, creditsPanel);
+            RankingState = new RankingState(this, rankingPanel, allLevels);
         }
 
         private void Start()
@@ -36,6 +44,7 @@ namespace _Game.Scripts.Core.Menu
             modeSelectorPanel.SetActive(false);
             settingsPanel.SetActive(false);
             creditsPanel.SetActive(false);
+            rankingPanel.SetActive(false);
 
             ChangeState(MainState);
         }
@@ -57,7 +66,6 @@ namespace _Game.Scripts.Core.Menu
 
         public void QuitGame()
         {
-            Debug.Log("Cerrando juego...");
             Application.Quit();
         }
     }

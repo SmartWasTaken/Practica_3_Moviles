@@ -6,19 +6,22 @@ namespace _Game.Scripts.Core.Menu
     {
         private MenuController _controller;
         private GameObject _panel;
-        private RectTransform _panelRect;
+        private RectTransform _parallaxTarget;
 
-        public MainState(MenuController controller, GameObject panel)
+        public MainState(MenuController controller, GameObject panel, GameObject parallaxObj)
         {
             _controller = controller;
             _panel = panel;
-            _panelRect = panel.GetComponent<RectTransform>();
+            
+            if (parallaxObj != null)
+                _parallaxTarget = parallaxObj.GetComponent<RectTransform>();
+            else
+                _parallaxTarget = panel.GetComponent<RectTransform>();
         }
 
         public void Enter()
         {
             _panel.SetActive(true);
-            //añadir sonido en el futuro
         }
 
         public void Exit()
@@ -33,7 +36,7 @@ namespace _Game.Scripts.Core.Menu
 
         private void ApplyParallaxEffect()
         {
-            if (_panelRect == null) return;
+            if (_parallaxTarget == null) return;
 
             Vector2 inputPos = Vector2.zero;
             if (Input.touchCount > 0)
@@ -44,17 +47,13 @@ namespace _Game.Scripts.Core.Menu
             float x = (inputPos.x / Screen.width) - 0.5f;
             float y = (inputPos.y / Screen.height) - 0.5f;
             Quaternion targetRotation = Quaternion.Euler(-y * _controller.parallaxStrength, x * _controller.parallaxStrength, 0);
-            _panelRect.rotation = Quaternion.Lerp(_panelRect.rotation, targetRotation, Time.deltaTime * 5f);
+            _parallaxTarget.rotation = Quaternion.Lerp(_parallaxTarget.rotation, targetRotation, Time.deltaTime * 5f);
         }
 
-
-        public void OnPlayPressed()
-        {
-            _controller.ChangeState(_controller.ModeSelectState);
-        }
-
+        public void OnPlayPressed() => _controller.ChangeState(_controller.ModeSelectState);
         public void OnSettingsPressed() => _controller.ChangeState(_controller.SettingsState);
         public void OnCreditsPressed() => _controller.ChangeState(_controller.CreditsState);
+        public void OnRankingPressed() => _controller.ChangeState(_controller.RankingState);
         public void OnExitPressed() => _controller.QuitGame();
     }
 }
