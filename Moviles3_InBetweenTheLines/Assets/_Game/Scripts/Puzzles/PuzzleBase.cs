@@ -1,6 +1,6 @@
 using UnityEngine;
 using System;
-using _Game.Scripts.Core.Game; // 1. NECESARIO PARA VER EL LEVELMANAGER
+using _Game.Scripts.Core;
 
 namespace _Game.Scripts.Puzzles
 {
@@ -10,6 +10,8 @@ namespace _Game.Scripts.Puzzles
 
         protected LevelManager _levelManager; 
         protected bool isSolved = false;
+        
+        protected int _currentDifficulty; 
 
         protected void CompletePuzzle()
         {
@@ -26,9 +28,10 @@ namespace _Game.Scripts.Puzzles
             }
         }
 
-        public virtual void Initialize(LevelManager manager) 
+        public virtual void Initialize(LevelManager manager, int difficulty) 
         {
             _levelManager = manager;
+            _currentDifficulty = difficulty;
             isSolved = false;
         }
 

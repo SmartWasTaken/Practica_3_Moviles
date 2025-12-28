@@ -5,7 +5,7 @@ using _Game.Scripts.Puzzles;
 using System;
 using _Game.Scripts.Core.UI;
 
-namespace _Game.Scripts.Core.Game
+namespace _Game.Scripts.Core
 {
     public class LevelManager : MonoBehaviour
     {
@@ -28,19 +28,37 @@ namespace _Game.Scripts.Core.Game
             ClearCurrentLevel();
 
             _currentConfig = config;
-            _timeRemaining = config.timeLimit; 
+
+            string textToShow = "";
+            int difficulty = 0;
+
+            if (config.variations != null && config.variations.Count > 0)
+            {
+                int randomIndex = UnityEngine.Random.Range(0, config.variations.Count);
+                LevelVariation variation = config.GetVariation(randomIndex);
+                
+                _timeRemaining = variation.timeLimit;
+                textToShow = variation.riddleText;
+                difficulty = variation.difficultyLevel;
+            }
+            else
+            {
+                Debug.LogWarning("El nivel no tiene variaciones configuradas. Usando valores por defecto.");
+                _timeRemaining = 10f; 
+                textToShow = "Configura las variaciones";
+            }
             
             _mainCamera.backgroundColor = config.backgroundColor;
             
             if (_uiManager != null)
             {
-                _uiManager.SetupLevelUI(config.riddleText, _timeRemaining);
+                _uiManager.SetupLevelUI(textToShow, _timeRemaining);
             }
 
             if (config.puzzlePrefab != null)
             {
                 _currentPuzzle = Instantiate(config.puzzlePrefab, _puzzleSpawnPoint);
-                _currentPuzzle.Initialize(this); 
+                _currentPuzzle.Initialize(this, difficulty); 
             }
 
             _isPlaying = true;
@@ -64,7 +82,6 @@ namespace _Game.Scripts.Core.Game
             }
         }
 
-        // Métodos llamados por el PuzzleBase
         public void OnPuzzleSolved()
         {
             if (!_isPlaying) return;
@@ -90,12 +107,18 @@ namespace _Game.Scripts.Core.Game
 
         private IEnumerator FinishSequence(bool win)
         {
-            if(_uiManager != null) _uiManager.HideHUD();
-            // Aquí vamos a lanzar partículas, sonidos, esperamos 2 segundos y pasamos al siguiente nivel
-            yield return new WaitForSeconds(2f);
-            
-            // Lógica para volver al menú o cargar siguiente
-            OnLevelFinished?.Invoke(win);
+            if (win)
+            {
+                if(_uiManager != null) _uiManager.HideHUD();
+                // Lanzar partículas, sonidos...
+                yield return new WaitForSeconds(2f);
+                OnLevelFinished?.Invoke(true);
+            }
+            else
+            {
+                if(_uiManager != null) _uiManager.ShowGameOver();
+                
+            }
         }
 
         private void ClearCurrentLevel()

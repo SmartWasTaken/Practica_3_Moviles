@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
+using _Game.Scripts.Core.Utils;
 
 namespace _Game.Scripts.Core.UI
 {
@@ -11,6 +13,9 @@ namespace _Game.Scripts.Core.UI
         [SerializeField] private Image _timerFillImage;
         [SerializeField] private TextMeshProUGUI _riddleText;
         [SerializeField] private GameObject _gamePlayPanel;
+
+        [Header("Game Over / Feedback")]
+        [SerializeField] private GameObject _gameOverPanel;
 
         [Header("Rankings")]
         [SerializeField] private TextMeshProUGUI _highScoreText;
@@ -23,6 +28,8 @@ namespace _Game.Scripts.Core.UI
         public void SetupLevelUI(string riddle, float maxTime)
         {
             _gamePlayPanel.SetActive(true);
+            _gameOverPanel.SetActive(false);
+            
             _riddleText.text = riddle;
             
             //Slider
@@ -44,6 +51,25 @@ namespace _Game.Scripts.Core.UI
         public void HideHUD()
         {
             _gamePlayPanel.SetActive(false);
+        }
+
+
+        public void ShowGameOver()
+        {
+            HideHUD();
+            _gameOverPanel.SetActive(true);
+        }
+
+        public void OnExitButton()
+        {
+            SceneNavigation.TargetMenuState = "";
+            SceneManager.LoadScene("MainMenu");
+        }
+
+        public void OnRankingButton()
+        {
+            SceneNavigation.TargetMenuState = "Ranking";
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }

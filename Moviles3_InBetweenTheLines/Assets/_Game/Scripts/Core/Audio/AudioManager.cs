@@ -21,6 +21,7 @@ namespace _Game.Scripts.Core.Audio
             if (Instance == null)
             {
                 Instance = this;
+                transform.SetParent(null);
                 DontDestroyOnLoad(gameObject);
                 Initialize();
             }

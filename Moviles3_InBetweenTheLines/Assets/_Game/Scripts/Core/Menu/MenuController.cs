@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using _Game.Scripts.Data;
+using _Game.Scripts.Core.Utils;
+using UnityEngine.SceneManagement;
 
 namespace _Game.Scripts.Core.Menu
 {
@@ -46,7 +48,15 @@ namespace _Game.Scripts.Core.Menu
             creditsPanel.SetActive(false);
             rankingPanel.SetActive(false);
 
-            ChangeState(MainState);
+            if (SceneNavigation.TargetMenuState == "Ranking")
+            {
+                ChangeState(RankingState);
+            }
+            else
+            {
+                ChangeState(MainState);
+            }
+            SceneNavigation.TargetMenuState = "";
         }
 
         private void Update()

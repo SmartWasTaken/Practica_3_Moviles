@@ -147,6 +147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f06f6d152d2a4dcbacf8e1e6baa33663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_Game.Scripts.Puzzles.BatteryPuzzle
+  _pourSpeed: 0.5
+  _viscousMultiplier: 0.1
+  _shakeThreshold: 2
 --- !u!1 &5818473311362424672
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,8 +184,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.00000095367}
-  m_SizeDelta: {x: 276.8, y: 80.7}
+  m_AnchoredPosition: {x: -0.0000019073, y: 9.3564e-10}
+  m_SizeDelta: {x: 214.97, y: 80.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2945141728461395624
 CanvasRenderer:
@@ -214,8 +217,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: NIVEL 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 161182b60ba55bf4c96b317ca73d1d08, type: 2}
+  m_sharedMaterial: {fileID: 6456827170457024211, guid: 161182b60ba55bf4c96b317ca73d1d08, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

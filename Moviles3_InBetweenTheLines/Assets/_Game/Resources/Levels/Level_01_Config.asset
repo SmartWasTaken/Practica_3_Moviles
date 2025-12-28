@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b68c69bd88470bbd89758fbad2331b, type: 3}
   m_Name: Level_01_Config
   m_EditorClassIdentifier: Assembly-CSharp::_Game.Scripts.Data.LevelConfig
-  riddleText: "\xA1Tengo poca energ\xEDa!"
+  levelID: 1
+  LvlName: La botella
   backgroundColor: {r: 0, g: 1, b: 0.48627454, a: 1}
   puzzlePrefab: {fileID: 1196531482329518414, guid: 72d24e1837c291247856d58d041692f9, type: 3}
-  timeLimit: 5
+  variations:
+  - variationName: Hola
+    riddleText: Hola
+    timeLimit: 10
+    difficultyLevel: 1

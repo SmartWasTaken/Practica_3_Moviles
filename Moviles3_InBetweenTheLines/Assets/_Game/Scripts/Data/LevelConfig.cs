@@ -1,21 +1,39 @@
 using _Game.Scripts.Puzzles;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace _Game.Scripts.Data
 {
+    [System.Serializable]
+    public struct LevelVariation
+    {
+        public string variationName;
+        [TextArea] public string riddleText;
+        public float timeLimit;
+        public int difficultyLevel;
+    }
+
     [CreateAssetMenu(fileName = "NewLevel", menuName = "Sensory/LevelConfig")]
     public class LevelConfig : ScriptableObject
     {
         [Header("Identificación")]
         public string levelID;
+
+        public string LvlName; //solo utilizado para el ranking
         
         [Header("Configuración Visual")]
-        [TextArea] public string riddleText; 
         public Color backgroundColor; 
 
         [Header("Lógica")]
         public PuzzleBase puzzlePrefab;
 
-        [Header("Tiempo")] public float timeLimit;
+        [Header("Variaciones del Nivel")]
+        public List<LevelVariation> variations;
+        
+        public LevelVariation GetVariation(int index)
+        {
+            if (variations == null || variations.Count == 0) return default;
+            return variations[Mathf.Clamp(index, 0, variations.Count - 1)];
+        }
     }
 }

@@ -35,10 +35,10 @@ namespace _Game.Scripts.Core.UI
             
             if (texts.Length >= 2)
             {
-                texts[0].text = levelData.name;
+                texts[0].text = levelData.LvlName;
                 
                 int score = ScoreManager.GetHighScore(levelData.levelID);
-                texts[1].text = score > 0 ? $"{score} pts" : "-";
+                texts[1].text = score > 0 ? $"{score} pts" : "0 pts";
             }
         }
     }

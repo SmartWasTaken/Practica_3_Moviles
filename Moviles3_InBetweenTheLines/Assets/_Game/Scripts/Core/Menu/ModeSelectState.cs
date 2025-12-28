@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace _Game.Scripts.Core.Menu
 {
@@ -16,7 +17,6 @@ namespace _Game.Scripts.Core.Menu
         public void Enter()
         {
             _panel.SetActive(true);
-            // AQUÍ: Podríamos resetear la posición del scroll/carrusel al centro
         }
 
         public void Exit()
@@ -35,7 +35,7 @@ namespace _Game.Scripts.Core.Menu
         public void OnStoryModePressed()
         {
             Debug.Log("Iniciando Modo Historia...");
-            // SceneManager.LoadScene("GameLevel");
+            SceneManager.LoadScene("GameScene");
         }
 
         public void OnBackActive()

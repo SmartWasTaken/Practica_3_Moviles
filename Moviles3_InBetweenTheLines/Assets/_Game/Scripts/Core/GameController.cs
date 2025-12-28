@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using _Game.Scripts.Data;
-using _Game.Scripts.Core.Game;
+using _Game.Scripts.Core;
 
 namespace _Game.Scripts.Core
 {
