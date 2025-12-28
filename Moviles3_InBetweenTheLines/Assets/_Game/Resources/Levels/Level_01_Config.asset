@@ -17,7 +17,8 @@ MonoBehaviour:
   backgroundColor: {r: 0, g: 1, b: 0.48627454, a: 1}
   puzzlePrefab: {fileID: 1196531482329518414, guid: 72d24e1837c291247856d58d041692f9, type: 3}
   variations:
-  - variationName: Hola
-    riddleText: Hola
+  - variationName: Liquido
+    riddleText: The water is anxious to get to the core of the earth
     timeLimit: 10
     difficultyLevel: 1
+    tutorialRequired: 1

@@ -1,6 +1,7 @@
 using _Game.Scripts.Puzzles;
 using UnityEngine;
 using System.Collections.Generic;
+using _Game.Scripts.Core.Game;
 
 namespace _Game.Scripts.Data
 {
@@ -11,6 +12,8 @@ namespace _Game.Scripts.Data
         [TextArea] public string riddleText;
         public float timeLimit;
         public int difficultyLevel;
+        
+        public TutorialType tutorialRequired; 
     }
 
     [CreateAssetMenu(fileName = "NewLevel", menuName = "Sensory/LevelConfig")]
@@ -18,8 +21,7 @@ namespace _Game.Scripts.Data
     {
         [Header("Identificación")]
         public string levelID;
-
-        public string LvlName; //solo utilizado para el ranking
+        public string LvlName; 
         
         [Header("Configuración Visual")]
         public Color backgroundColor; 

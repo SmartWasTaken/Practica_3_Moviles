@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using _Game.Scripts.Core.Game;
 
 namespace _Game.Scripts.Core.Menu
 {
@@ -35,7 +35,7 @@ namespace _Game.Scripts.Core.Menu
         public void OnStoryModePressed()
         {
             Debug.Log("Iniciando Modo Historia...");
-            SceneManager.LoadScene("GameScene");
+            TransitionManager.Instance.LoadScene("GameScene");
         }
 
         public void OnBackActive()

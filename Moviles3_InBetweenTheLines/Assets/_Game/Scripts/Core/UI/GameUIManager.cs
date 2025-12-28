@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using _Game.Scripts.Core.Utils;
+using _Game.Scripts.Core.Game;
 
 namespace _Game.Scripts.Core.UI
 {
@@ -24,6 +25,8 @@ namespace _Game.Scripts.Core.UI
         [Header("Juice Config")]
         [SerializeField] private Color _normalTimeColor = Color.white;
         [SerializeField] private Color _criticalTimeColor = Color.red;
+        
+        private string _menuName = "MainMenu";
 
         public void SetupLevelUI(string riddle, float maxTime)
         {
@@ -32,7 +35,6 @@ namespace _Game.Scripts.Core.UI
             
             _riddleText.text = riddle;
             
-            //Slider
             _timerSlider.maxValue = maxTime;
             _timerSlider.value = maxTime;
             _timerFillImage.color = _normalTimeColor;
@@ -53,23 +55,38 @@ namespace _Game.Scripts.Core.UI
             _gamePlayPanel.SetActive(false);
         }
 
-
         public void ShowGameOver()
         {
             HideHUD();
             _gameOverPanel.SetActive(true);
         }
 
+
         public void OnExitButton()
         {
             SceneNavigation.TargetMenuState = "";
-            SceneManager.LoadScene("MainMenu");
+            if (TransitionManager.Instance != null)
+            {
+                TransitionManager.Instance.LoadScene(_menuName);
+            }
+            else
+            {
+                SceneManager.LoadScene(_menuName);
+            }
         }
 
         public void OnRankingButton()
         {
             SceneNavigation.TargetMenuState = "Ranking";
-            SceneManager.LoadScene("MainMenu");
+            
+            if (TransitionManager.Instance != null)
+            {
+                TransitionManager.Instance.LoadScene(_menuName);
+            }
+            else
+            {
+                SceneManager.LoadScene(_menuName);
+            }
         }
     }
 }

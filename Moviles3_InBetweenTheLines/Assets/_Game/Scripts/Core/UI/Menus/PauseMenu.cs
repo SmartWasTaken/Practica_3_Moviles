@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using _Game.Scripts.Core.Game;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using _Game.Scripts.Core.UI.Base;
 using _Game.Scripts.Core.Utils;
@@ -61,7 +62,7 @@ namespace _Game.Scripts.Core.UI.Menus
             Time.timeScale = 1f;
             
             SceneNavigation.TargetMenuState = ""; 
-            SceneManager.LoadScene("GameScene");
+            TransitionManager.Instance.LoadScene("MainMenu");
         }
     }
 }

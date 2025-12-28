@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using _Game.Scripts.Core.Game;
 using _Game.Scripts.Data;
 using _Game.Scripts.Core.Utils;
 using UnityEngine.SceneManagement;
@@ -50,28 +51,39 @@ namespace _Game.Scripts.Core.Menu
 
             if (SceneNavigation.TargetMenuState == "Ranking")
             {
-                ChangeState(RankingState);
+                ForceState(RankingState);
             }
             else
             {
-                ChangeState(MainState);
+                ForceState(MainState);
             }
             SceneNavigation.TargetMenuState = "";
         }
 
+        
         private void Update()
         {
             if (_currentState != null)
                 _currentState.UpdateState();
         }
+        
+        private void ForceState(IMenuState newState)
+        {
+            if (_currentState != null) _currentState.Exit();
+            _currentState = newState;
+            _currentState.Enter();
+        }
 
         public void ChangeState(IMenuState newState)
         {
-            if (_currentState != null)
-                _currentState.Exit();
+            TransitionManager.Instance.DoTransition(() => 
+            {
+                if (_currentState != null)
+                    _currentState.Exit();
 
-            _currentState = newState;
-            _currentState.Enter();
+                _currentState = newState;
+                _currentState.Enter();
+            });
         }
 
         public void QuitGame()
