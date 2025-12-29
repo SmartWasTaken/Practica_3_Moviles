@@ -40,13 +40,13 @@ public class AppLoader : MonoBehaviour
 
             float visualProgress = Mathf.Min(realProgress, timeProgress);
             if (_loadingBar) _loadingBar.value = visualProgress;
-            if (_loadingText) _loadingText.text = $"CARGANDO... {(visualProgress * 100):F0}%";
+            if (_loadingText) _loadingText.text = $"LOADING... {(visualProgress * 100):F0}%";
 
             yield return null;
         }
 
         if (_loadingBar) _loadingBar.value = 1f;
-        if (_loadingText) _loadingText.text = "LISTO";
+        if (_loadingText) _loadingText.text = "READY";
 
         yield return new WaitForSeconds(0.2f);
 
