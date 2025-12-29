@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using DG.Tweening; // Importante
 
 namespace _Game.Scripts.Core.UI.Effects
 {
@@ -10,8 +10,9 @@ namespace _Game.Scripts.Core.UI.Effects
         [Header("Configuración")]
         [SerializeField] private float _delay = 0.5f;
         [SerializeField] private float _duration = 1.0f;
-        
-        [SerializeField] private AnimationCurve _curve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+        [SerializeField] private Ease _easeType = Ease.OutBack;
+        [SerializeField] private AnimationCurve _customCurve;
+        [SerializeField] private bool _useCustomCurve = false;
         
         private Vector3 _finalScale;
 
@@ -25,7 +26,14 @@ namespace _Game.Scripts.Core.UI.Effects
             if (!_hasIntroPlayed)
             {
                 transform.localScale = Vector3.zero;
-                StartCoroutine(PlayIntro());
+
+                var tween = transform.DOScale(_finalScale, _duration)
+                    .SetDelay(_delay)
+                    .SetUpdate(true);
+
+                if (_useCustomCurve) tween.SetEase(_customCurve);
+                else tween.SetEase(_easeType);
+
                 _hasIntroPlayed = true;
             }
             else
@@ -34,22 +42,9 @@ namespace _Game.Scripts.Core.UI.Effects
             }
         }
 
-        private IEnumerator PlayIntro()
+        private void OnDestroy()
         {
-            yield return new WaitForSeconds(_delay);
-
-            float timer = 0;
-            while(timer < _duration)
-            {
-                timer += Time.deltaTime;
-                float progress = timer / _duration;
-                
-                float value = _curve.Evaluate(progress);
-
-                transform.localScale = _finalScale * value;
-                yield return null;
-            }
-            transform.localScale = _finalScale;
+            transform.DOKill();
         }
     }
 }

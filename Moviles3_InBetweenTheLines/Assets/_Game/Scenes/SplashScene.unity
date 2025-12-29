@@ -724,6 +724,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TransitionCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8157598549531536493, guid: 0631c32acddad1f4c92c47626ba0a84e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1369,7 +1373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98610b178565480479345345b037fbed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_Game.Scripts.Core.Menu.AppLoader
-  _minLoadTime: 3
+  _minLoadTime: 1
   _nextSceneName: MainMenu
   _loadingBar: {fileID: 148215116}
   _loadingText: {fileID: 978069890}

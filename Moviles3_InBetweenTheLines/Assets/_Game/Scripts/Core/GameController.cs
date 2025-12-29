@@ -1,77 +1,120 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
+using _Game.Scripts.Core.Game;
 using _Game.Scripts.Data;
-using _Game.Scripts.Core;
+using _Game.Scripts.Core.UI;
 
 namespace _Game.Scripts.Core
 {
     public class GameController : MonoBehaviour
     {
-        [Header("El Ejecutor")]
+        [Header("Gestores")]
         [SerializeField] private LevelManager _levelManager;
+        [SerializeField] private ScoreScreen _scoreScreen;
+        [SerializeField] private GameObject _gameOverPanel;
 
-        [Header("La Lista de Reproducción")]
+        [Header("Banco de Niveles")]
+        [Tooltip("Arrastra aquí TODOS tus niveles. El código elegirá la dificultad interna.")]
         [SerializeField] private List<LevelConfig> _allLevels; 
 
-        private int _currentLevelIndex = 0;
+        [Header("Ajustes")]
+        [SerializeField] private int _pityScore = 50;
+
+        private int _totalAccumulatedScore = 0;
+        private int _levelsCompletedCount = 0;
+        private bool _isGameActive = false;
 
         private void Start()
         {
-            if(_allLevels == null || _allLevels.Count == 0)
+            Application.targetFrameRate = 60;
+
+            if (_allLevels.Count == 0)
             {
-                Debug.LogWarning("GameController: No hay niveles en la lista.");
                 return;
             }
 
-            // Nos suscribimos al evento del LevelManager
-            // "Cuando termines un nivel, avísame a la función OnLevelFinished"
+            _levelManager.OnLevelFinished -= HandleLevelFinished;
             _levelManager.OnLevelFinished += HandleLevelFinished;
 
-            // Cargamos el primero
-            LoadCurrentLevel();
+            _totalAccumulatedScore = 0;
+            _levelsCompletedCount = 0;
+
+            StartCoroutine(StartGameRoutine());
         }
 
         private void OnDestroy()
         {
-            if (_levelManager != null)
-            {
-                _levelManager.OnLevelFinished -= HandleLevelFinished;
-            }
+            if (_levelManager != null) _levelManager.OnLevelFinished -= HandleLevelFinished;
         }
 
-        private void LoadCurrentLevel()
+        private IEnumerator StartGameRoutine()
         {
-            if (_currentLevelIndex >= _allLevels.Count)
-            {
-                Debug.Log("¡JUEGO COMPLETADO! No quedan más niveles.");
-                // Aquí podríamos cargar la escena del Menú Principal o el RANKING
-                // SceneManager.LoadScene("MenuScene");
-                return;
-            }
-
-            // Obtenemos los datos del nivel actual
-            LevelConfig config = _allLevels[_currentLevelIndex];
-
-            // LE ORDENAMOS AL LEVEL MANAGER QUE LO CARGUE
-            // El GameController ya no toca prefabs ni textos, delega everything.
-            _levelManager.LoadLevel(config);
+            yield return null;
+            LoadNextLevelBasedOnProgression();
         }
 
-        // Esta función se llama automáticamente cuando LevelManager termina su trabajo
-        private void HandleLevelFinished(bool playerWon)
+        private void LoadNextLevelBasedOnProgression()
         {
-            if (playerWon)
+            int targetDifficulty = 0;
+
+            if (_levelsCompletedCount < 4)
             {
-                // Si ganó, sumamos índice y cargamos el siguiente
-                _currentLevelIndex++;
-                LoadCurrentLevel();
+                targetDifficulty = 0; 
+            }
+            else if (_levelsCompletedCount < 9)
+            {
+                targetDifficulty = 1; 
             }
             else
             {
-                // Si perdió, recargamos el mismo nivel (Retry)
-                Debug.Log("Reintentando nivel...");
-                LoadCurrentLevel();
+                targetDifficulty = 2; 
             }
+
+            int randomIndex = Random.Range(0, _allLevels.Count);
+            LevelConfig configToLoad = _allLevels[randomIndex];
+
+            _isGameActive = true;
+            
+            _levelManager.LoadLevel(configToLoad, targetDifficulty);
+        }
+
+        private void HandleLevelFinished(bool playerWon)
+        {
+            if (!_isGameActive) return;
+            _isGameActive = false;
+
+            int levelScore = _levelManager.CurrentScore;
+            int currentLives = _levelManager.CurrentLives;
+            int previousTotal = _totalAccumulatedScore;
+
+            int pointsToAnim = playerWon ? levelScore : _pityScore;
+            _totalAccumulatedScore += pointsToAnim;
+
+            _scoreScreen.AnimateSequence(
+                livesAfterGame: currentLives,
+                scoreEarned: pointsToAnim,
+                previousTotalScore: previousTotal,
+                isWin: playerWon,
+                isRecord: false, 
+                onComplete: () => {
+                    if(_scoreScreen != null) _scoreScreen.gameObject.SetActive(false);
+                    
+                    if (currentLives > 0)
+                    {
+                        if(playerWon)
+                        {
+                            _levelsCompletedCount++; 
+                        }
+                        LoadNextLevelBasedOnProgression();
+                    }
+                    else
+                    {
+                        Debug.Log("Game Over");
+                        _gameOverPanel.SetActive(true);
+                    }
+                }
+            );
         }
     }
 }

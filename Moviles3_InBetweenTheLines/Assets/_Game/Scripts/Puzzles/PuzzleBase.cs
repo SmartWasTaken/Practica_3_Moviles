@@ -18,7 +18,6 @@ namespace _Game.Scripts.Puzzles
             if (isSolved) return;
             
             isSolved = true;
-            Debug.Log($"[PuzzleBase] Nivel '{gameObject.name}' completado.");
             
             OnLevelCompleted?.Invoke();
 

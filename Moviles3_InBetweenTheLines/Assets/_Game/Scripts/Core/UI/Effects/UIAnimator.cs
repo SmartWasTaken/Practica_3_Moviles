@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
-using _Game.Scripts.Core.Game; // Necesario para ver al TransitionManager
+using DG.Tweening; // Importante
+using _Game.Scripts.Core.Game; 
 
 namespace _Game.Scripts.Core.UI.Effects
 {
@@ -11,11 +12,12 @@ namespace _Game.Scripts.Core.UI.Effects
         [SerializeField] private bool _animateOnEnable = true;
         [SerializeField] private float _startDelay = 0f;
         [SerializeField] private float _enterDuration = 0.5f;
-        [SerializeField] private AnimationCurve _popCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+        [SerializeField] private Ease _enterEase = Ease.OutBack;
 
-        [Header("Interacción")]
+        [Header("Interacción (Click)")]
         [SerializeField] private float _clickScale = 0.9f;
-
+        [SerializeField] private float _clickDuration = 0.1f; 
+        
         private Vector3 _originalScale;
 
         private void Awake()
@@ -28,12 +30,20 @@ namespace _Game.Scripts.Core.UI.Effects
             if (_animateOnEnable)
             {
                 transform.localScale = Vector3.zero;
-                StopAllCoroutines();
-                StartCoroutine(WaitAndAnimate());
+                StartCoroutine(WaitAndAnimateRoutine());
+            }
+            else
+            {
+                transform.localScale = _originalScale;
             }
         }
 
-        private IEnumerator WaitAndAnimate()
+        private void OnDisable()
+        {
+            transform.DOKill(); 
+        }
+
+        private IEnumerator WaitAndAnimateRoutine()
         {
             if (TransitionManager.Instance != null && TransitionManager.Instance.IsTransiting)
             {
@@ -42,33 +52,27 @@ namespace _Game.Scripts.Core.UI.Effects
 
             if (_startDelay > 0) yield return new WaitForSecondsRealtime(_startDelay);
 
-            yield return StartCoroutine(AnimatePop());
-        }
-
-        private IEnumerator AnimatePop()
-        {
-            float timer = 0f;
-            while (timer < _enterDuration)
-            {
-                timer += Time.unscaledDeltaTime;
-                float progress = timer / _enterDuration;
-                float value = _popCurve.Evaluate(progress);
-                
-                transform.localScale = _originalScale * value;
-                yield return null;
-            }
-            transform.localScale = _originalScale;
+            transform.DOScale(_originalScale, _enterDuration)
+                .SetEase(_enterEase)
+                .SetUpdate(true); 
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            StopAllCoroutines();
-            transform.localScale = _originalScale * _clickScale;
+            transform.DOKill(); 
+            
+            transform.DOScale(_originalScale * _clickScale, _clickDuration)
+                .SetEase(Ease.OutQuad)
+                .SetUpdate(true);
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            transform.localScale = _originalScale;
+            transform.DOKill();
+
+            transform.DOScale(_originalScale, _clickDuration)
+                .SetEase(Ease.OutBack) 
+                .SetUpdate(true);
         }
     }
 }

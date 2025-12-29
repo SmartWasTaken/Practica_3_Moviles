@@ -3,8 +3,8 @@ using System.Collections;
 using _Game.Scripts.Data;
 using _Game.Scripts.Puzzles;
 using System;
-using _Game.Scripts.Core.UI;
 using _Game.Scripts.Core.Game;
+using _Game.Scripts.Core.UI;
 
 namespace _Game.Scripts.Core
 {
@@ -22,10 +22,14 @@ namespace _Game.Scripts.Core
         private PuzzleBase _currentPuzzle;
         private LevelConfig _currentConfig;
         
-        // Estado del juego
         private float _timeRemaining;
         private bool _isPlaying;
+        
+        private int _currentScore;
         private int _currentLives = 3;
+        
+        public int CurrentScore => _currentScore;
+        public int CurrentLives => _currentLives;
 
         private void Awake()
         {
@@ -35,34 +39,39 @@ namespace _Game.Scripts.Core
         public void ResetLives()
         {
             _currentLives = 3;
-            // Aquí deberías actualizar los corazones en la UI si fuera necesario
-            // if(_uiManager != null) _uiManager.UpdateLives(_currentLives);
         }
 
-        public void LoadLevel(LevelConfig config)
+        public void LoadLevel(LevelConfig config, int targetDifficulty)
         {
             ClearCurrentLevel();
             _currentConfig = config;
 
             string textToShow = "";
-            int difficulty = 0;
+            int finalDifficulty = targetDifficulty;
             TutorialType requiredTutorial = TutorialType.None; 
-
+            
             if (config.variations != null && config.variations.Count > 0)
             {
-                int randomIndex = UnityEngine.Random.Range(0, config.variations.Count);
-                LevelVariation variation = config.GetVariation(randomIndex);
-                
-                _timeRemaining = variation.timeLimit;
-                textToShow = variation.riddleText;
-                difficulty = variation.difficultyLevel;
-                requiredTutorial = variation.tutorialRequired;
+                LevelVariation selectedVariation = config.variations[0];
+
+                for (int i = 0; i < config.variations.Count; i++)
+                {
+                    if (config.variations[i].difficultyLevel == targetDifficulty)
+                    {
+                        selectedVariation = config.variations[i];
+                        break;
+                    }
+                }
+
+                _timeRemaining = selectedVariation.timeLimit;
+                textToShow = selectedVariation.riddleText;
+                finalDifficulty = selectedVariation.difficultyLevel;
+                requiredTutorial = selectedVariation.tutorialRequired;
             }
             else
             {
-                Debug.LogWarning("El nivel no tiene variaciones configuradas. Usando valores por defecto.");
                 _timeRemaining = 10f; 
-                textToShow = "Configura las variaciones";
+                textToShow = "Sin variaciones";
             }
             
             _mainCamera.backgroundColor = config.backgroundColor;
@@ -75,14 +84,13 @@ namespace _Game.Scripts.Core
             if (config.puzzlePrefab != null)
             {
                 _currentPuzzle = Instantiate(config.puzzlePrefab, _puzzleSpawnPoint);
-                _currentPuzzle.Initialize(this, difficulty); 
+                _currentPuzzle.Initialize(this, finalDifficulty); 
             }
 
             _isPlaying = false;
             
             TutorialManager.Instance.TryShowTutorial(requiredTutorial, () => 
             {
-                Debug.Log("Tutorial cerrado o no necesario. Empieza el juego.");
                 _isPlaying = true; 
             });
         }
@@ -110,7 +118,7 @@ namespace _Game.Scripts.Core
             if (!_isPlaying) return;
             _isPlaying = false;
             
-            Debug.Log("NIVEL COMPLETADO");
+            _currentScore = Mathf.Max(10, Mathf.CeilToInt(_timeRemaining * 100));
             StartCoroutine(FinishSequence(true));
         }
 
@@ -132,30 +140,15 @@ namespace _Game.Scripts.Core
             if (win)
             {
                 if(_uiManager != null) _uiManager.HideHUD();
-                
-                
                 yield return new WaitForSeconds(2f);
                 OnLevelFinished?.Invoke(true);
             }
             else
             {
-                // --- LÓGICA DE VIDAS ---
                 _currentLives--;
-                Debug.Log($"Vida perdida. Restantes: {_currentLives}");
                 
-
-                if (_currentLives <= 0)
-                {
-                    Debug.Log("GAME OVER REAL - Sin vidas");
-                    if(_uiManager != null) _uiManager.ShowGameOver();
-                    
-                }
-                else
-                {
-                    Debug.Log("Reintentando nivel...");
-                    yield return new WaitForSeconds(1f);
-                    OnLevelFinished?.Invoke(false); 
-                }
+                yield return new WaitForSeconds(1f);
+                OnLevelFinished?.Invoke(false); 
             }
         }
 
@@ -173,7 +166,6 @@ namespace _Game.Scripts.Core
         {
             PlayerPrefs.DeleteAll();
             PlayerPrefs.Save();
-            Debug.LogWarning("PlayerPrefs borrados. Los tutoriales volverán a salir.");
         }
     }
 }

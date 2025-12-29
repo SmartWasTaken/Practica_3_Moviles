@@ -7,7 +7,7 @@ public class SettingsPanelUi : MonoBehaviour
 	public Slider musicSlider;
 	public Slider sfxSlider;
 
-	void Start()
+	void OnEnable()
 	{
 		musicSlider.value = PlayerPrefs.GetFloat("MusicVol", 0.75f);
 		sfxSlider.value = PlayerPrefs.GetFloat("SFXVol", 0.75f);
