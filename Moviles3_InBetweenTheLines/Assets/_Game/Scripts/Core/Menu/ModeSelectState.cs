@@ -34,7 +34,6 @@ namespace _Game.Scripts.Core.Menu
 
         public void OnStoryModePressed()
         {
-            Debug.Log("Iniciando Modo Historia...");
             TransitionManager.Instance.LoadScene("GameScene");
         }
 

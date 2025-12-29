@@ -12,6 +12,8 @@ namespace _Game.Scripts.Core
         [Header("Gestores")]
         [SerializeField] private LevelManager _levelManager;
         [SerializeField] private ScoreScreen _scoreScreen;
+        
+        [Header("Referencias UI")]
         [SerializeField] private GameObject _gameOverPanel;
 
         [Header("Banco de Niveles")]
@@ -24,6 +26,15 @@ namespace _Game.Scripts.Core
         private int _totalAccumulatedScore = 0;
         private int _levelsCompletedCount = 0;
         private bool _isGameActive = false;
+
+        private void Awake()
+        {
+            if (_gameOverPanel == null)
+            {
+                var panelScript = FindFirstObjectByType<GameOverPanel>(FindObjectsInactive.Include);
+                if (panelScript != null) _gameOverPanel = panelScript.gameObject;
+            }
+        }
 
         private void Start()
         {
@@ -89,6 +100,7 @@ namespace _Game.Scripts.Core
             int previousTotal = _totalAccumulatedScore;
 
             int pointsToAnim = playerWon ? levelScore : _pityScore;
+            
             _totalAccumulatedScore += pointsToAnim;
 
             _scoreScreen.AnimateSequence(
@@ -98,6 +110,7 @@ namespace _Game.Scripts.Core
                 isWin: playerWon,
                 isRecord: false, 
                 onComplete: () => {
+                    
                     if(_scoreScreen != null) _scoreScreen.gameObject.SetActive(false);
                     
                     if (currentLives > 0)
@@ -110,7 +123,7 @@ namespace _Game.Scripts.Core
                     }
                     else
                     {
-                        Debug.Log("Game Over");
+                        ScoreManager.SaveScore("Global_Ranking", _totalAccumulatedScore);
                         _gameOverPanel.SetActive(true);
                     }
                 }

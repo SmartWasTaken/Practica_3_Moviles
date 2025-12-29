@@ -1,44 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using _Game.Scripts.Data;
-using TMPro;
 
 namespace _Game.Scripts.Core.UI
 {
     public class RankingUI : MonoBehaviour
     {
         [Header("Referencias")]
-        [SerializeField] private GameObject _rowPrefab;
+        [SerializeField] private RankingRow _rowPrefab;
         [SerializeField] private Transform _contentContainer;
 
-        public void PopulateRanking(List<LevelConfig> allLevels)
+        public void ShowRanking(string levelID)
         {
             foreach (Transform child in _contentContainer)
             {
                 Destroy(child.gameObject);
             }
 
-            foreach (var level in allLevels)
-            {
-                CreateScoreRow(level);
-            }
-        }
-
-        private void CreateScoreRow(LevelConfig levelData)
-        {
-            GameObject newRow = Instantiate(_rowPrefab, _contentContainer);
-            newRow.transform.localScale = Vector3.one;
-            Vector3 pos = newRow.transform.localPosition;
-            pos.z = 0;
-            newRow.transform.localPosition = pos;
-            TextMeshProUGUI[] texts = newRow.GetComponentsInChildren<TextMeshProUGUI>();
+            ScoreListWrapper history = ScoreManager.LoadScoreHistory(levelID);
             
-            if (texts.Length >= 2)
+            for (int i = 0; i < history.entries.Count; i++)
             {
-                texts[0].text = levelData.LvlName;
+                ScoreEntry entry = history.entries[i];
                 
-                int score = ScoreManager.GetHighScore(levelData.levelID);
-                texts[1].text = score > 0 ? $"{score} pts" : "0 pts";
+                RankingRow newRow = Instantiate(_rowPrefab, _contentContainer);
+                
+                newRow.transform.localScale = Vector3.one;
+                Vector3 pos = newRow.transform.localPosition;
+                pos.z = 0;
+                newRow.transform.localPosition = pos;
+
+                bool isHighest = (i == 0); 
+                newRow.Setup(entry.date, entry.score, isHighest);
             }
         }
     }

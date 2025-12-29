@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace _Game.Scripts.Data
 {
@@ -6,24 +9,36 @@ namespace _Game.Scripts.Data
     {
         public static void SaveScore(string levelID, int score)
         {
-            int currentHighScore = GetHighScore(levelID);
-            
-            if (score > currentHighScore)
+            ScoreListWrapper currentData = LoadScoreHistory(levelID);
+
+            ScoreEntry newEntry = new ScoreEntry(score, DateTime.Now);
+
+            currentData.entries.Add(newEntry);
+
+            currentData.entries = currentData.entries.OrderByDescending(x => x.score).ToList();
+
+            string json = JsonUtility.ToJson(currentData);
+            PlayerPrefs.SetString($"History_{levelID}", json);
+            PlayerPrefs.Save();
+        }
+
+        public static ScoreListWrapper LoadScoreHistory(string levelID)
+        {
+            string key = $"History_{levelID}";
+            if (PlayerPrefs.HasKey(key))
             {
-                PlayerPrefs.SetInt($"Highscore_{levelID}", score);
-                PlayerPrefs.Save();
-                Debug.Log($"¡Nuevo Récord para {levelID}: {score}!");
+                string json = PlayerPrefs.GetString(key);
+                return JsonUtility.FromJson<ScoreListWrapper>(json);
             }
+            return new ScoreListWrapper();
         }
 
-        public static int GetHighScore(string levelID)
+        public static int GetBestScore(string levelID)
         {
-            return PlayerPrefs.GetInt($"Highscore_{levelID}", 0);
-        }
-
-        public static bool IsNewHighScore(string levelID, int score)
-        {
-            return score > GetHighScore(levelID);
+            var data = LoadScoreHistory(levelID);
+            if (data.entries.Count > 0)
+                return data.entries[0].score;
+            return 0;
         }
     }
 }

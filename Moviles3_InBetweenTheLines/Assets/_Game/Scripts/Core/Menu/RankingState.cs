@@ -27,7 +27,7 @@ namespace _Game.Scripts.Core.Menu
             
             if (_rankingLogic != null)
             {
-                _rankingLogic.PopulateRanking(_levelsData);
+                _rankingLogic.ShowRanking("Global_Ranking");
             }
         }
 
