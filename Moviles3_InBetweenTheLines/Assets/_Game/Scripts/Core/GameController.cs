@@ -22,7 +22,14 @@ namespace _Game.Scripts.Core
 
         [Header("Ajustes")]
         [SerializeField] private int _pityScore = 50;
+        
+        [Header("--- MODO DEBUG ---")]
+        [Tooltip("Si pones un nivel aquí, el juego cargará SIEMPRE este nivel e ignorará la progresión.")]
+        [SerializeField] private LevelConfig _debugLevel; 
+        [Tooltip("Dificultad forzada para probar variaciones (0=Fácil, 1=Medio, 2=Difícil)")]
+        [SerializeField] private int _debugDifficulty = 0;
 
+        private LevelConfig _currentLevelConfig;
         private int _totalAccumulatedScore = 0;
         private int _levelsCompletedCount = 0;
         private bool _isGameActive = false;
@@ -67,6 +74,18 @@ namespace _Game.Scripts.Core
 
         private void LoadNextLevelBasedOnProgression()
         {
+            
+            if (_debugLevel != null)
+            {
+                Debug.LogWarning($"[DEBUG MODE] Forzando carga del nivel: {_debugLevel.name} con dificultad {_debugDifficulty}");
+                
+                _currentLevelConfig = _debugLevel;
+                _isGameActive = true;
+                
+                _levelManager.LoadLevel(_debugLevel, _debugDifficulty);
+                return;
+            }
+            
             int targetDifficulty = 0;
 
             if (_levelsCompletedCount < 4)

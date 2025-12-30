@@ -42,58 +42,57 @@ namespace _Game.Scripts.Core
         }
 
         public void LoadLevel(LevelConfig config, int targetDifficulty)
+    {
+        ClearCurrentLevel();
+        _currentConfig = config;
+    
+        string textToShow = "";
+        int finalDifficulty = targetDifficulty;
+        TutorialType requiredTutorial = TutorialType.None;
+    
+        LevelVariation selectedVariation = new LevelVariation();
+        bool variationFound = false;
+    
+        if (config.variations != null && config.variations.Count > 0)
         {
-            ClearCurrentLevel();
-            _currentConfig = config;
-
-            string textToShow = "";
-            int finalDifficulty = targetDifficulty;
-            TutorialType requiredTutorial = TutorialType.None; 
-            
-            if (config.variations != null && config.variations.Count > 0)
-            {
-                LevelVariation selectedVariation = config.variations[0];
-
-                for (int i = 0; i < config.variations.Count; i++)
-                {
-                    if (config.variations[i].difficultyLevel == targetDifficulty)
-                    {
-                        selectedVariation = config.variations[i];
-                        break;
-                    }
-                }
-
-                _timeRemaining = selectedVariation.timeLimit;
-                textToShow = selectedVariation.riddleText;
-                finalDifficulty = selectedVariation.difficultyLevel;
-                requiredTutorial = selectedVariation.tutorialRequired;
-            }
-            else
-            {
-                _timeRemaining = 10f; 
-                textToShow = "Sin variaciones";
-            }
-            
-            _mainCamera.backgroundColor = config.backgroundColor;
-            
-            if (_uiManager != null)
-            {
-                _uiManager.SetupLevelUI(textToShow, _timeRemaining);
-            }
-
-            if (config.puzzlePrefab != null)
-            {
-                _currentPuzzle = Instantiate(config.puzzlePrefab, _puzzleSpawnPoint);
-                _currentPuzzle.Initialize(this, finalDifficulty); 
-            }
-
-            _isPlaying = false;
-            
-            TutorialManager.Instance.TryShowTutorial(requiredTutorial, () => 
-            {
-                _isPlaying = true; 
-            });
+            int index = Mathf.Clamp(targetDifficulty, 0, config.variations.Count - 1);
+            selectedVariation = config.variations[index];
+            variationFound = true;
         }
+    
+        if (variationFound)
+        {
+            _timeRemaining = selectedVariation.timeLimit;
+            textToShow = selectedVariation.riddleText;
+            finalDifficulty = targetDifficulty; 
+            requiredTutorial = selectedVariation.tutorialRequired;
+        }
+        else
+        {
+            _timeRemaining = 10f;
+            textToShow = "Configuración no encontrada";
+        }
+        
+        _mainCamera.backgroundColor = config.backgroundColor;
+        
+        if (_uiManager != null)
+        {
+            _uiManager.SetupLevelUI(textToShow, _timeRemaining);
+        }
+    
+        if (config.puzzlePrefab != null)
+        {
+            _currentPuzzle = Instantiate(config.puzzlePrefab, _puzzleSpawnPoint);
+            _currentPuzzle.Initialize(this, finalDifficulty); 
+        }
+    
+        _isPlaying = false;
+        
+        TutorialManager.Instance.TryShowTutorial(requiredTutorial, () => 
+        {
+            _isPlaying = true; 
+        });
+    }
 
         private void Update()
         {
@@ -154,11 +153,12 @@ namespace _Game.Scripts.Core
 
         private void ClearCurrentLevel()
         {
-            if (_currentPuzzle != null)
+            if (_currentPuzzle != null && _currentPuzzle.gameObject != null)
             {
                 Destroy(_currentPuzzle.gameObject);
-                _currentPuzzle = null;
             }
+    
+            _currentPuzzle = null;
         }
         
         [ContextMenu("Reset All Tutorials")]

@@ -19,16 +19,16 @@ MonoBehaviour:
   variations:
   - variationName: Liquido
     riddleText: The water is anxious to get to the core of the earth
-    timeLimit: 1
+    timeLimit: 15
     difficultyLevel: 0
     tutorialRequired: 1
   - variationName: Viscoso
     riddleText: The water is anxious to get to the core of the earth
-    timeLimit: 1
+    timeLimit: 10
     difficultyLevel: 1
     tutorialRequired: 1
   - variationName: Gas
     riddleText: The water is anxious to get to the core of the earth
-    timeLimit: 1
+    timeLimit: 8
     difficultyLevel: 2
     tutorialRequired: 1
