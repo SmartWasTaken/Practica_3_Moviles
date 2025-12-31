@@ -11,14 +11,17 @@ namespace _Game.Scripts.Puzzles
         [SerializeField] private float _pourSpeed = 0.5f;
         [SerializeField] private float _viscousMultiplier = 0.1f;
         [SerializeField] private float _shakeThreshold = 2.0f;
+        
+        [Header("Configuración Input")]
+        [SerializeField] private float _shakeMemoryDuration = 0.5f;
 
         [Header("Referencias Visuales")]
         [SerializeField] private Transform _bottleVisualTransform; 
         [SerializeField] private Renderer _liquidRenderer;
+        [SerializeField] private ParticleSystem _pouringParticleSystem; 
         [SerializeField] private float _visualSmoothSpeed = 10f; 
 
         [Header("Referencias Puntos Líquido")]
-        // ARRASTRA AQUÍ LOS OBJETOS VACÍOS QUE CREASTE
         [SerializeField] private Transform _pointBase; 
         [SerializeField] private Transform _pointTapon;
         
@@ -30,9 +33,9 @@ namespace _Game.Scripts.Puzzles
         [SerializeField] private float _currentFillAmount = 1.0f;
         [SerializeField] private float _currentFlowRate = 0f;
         
-        // Variables internas
         private Quaternion _initialVisualRotation;
         private float _simulatedTiltAngle = 0f; 
+        private float _shakeTimer = 0f;
 
         private float _wobbleAmountX;
         private float _wobbleAmountZ;
@@ -52,6 +55,11 @@ namespace _Game.Scripts.Puzzles
             _simulatedTiltAngle = 0f;
             _wobbleAddX = 0;
             _wobbleAddZ = 0;
+
+            if (_pouringParticleSystem != null && _pouringParticleSystem.isPlaying)
+            {
+                _pouringParticleSystem.Stop();
+            }
         }
 
         private void Update()
@@ -60,14 +68,21 @@ namespace _Game.Scripts.Puzzles
             HandleInputAndLogic();
             UpdateVisuals();
             UpdateLiquidVisuals();
+            UpdatePouringEffects();
         }
 
         private void HandleInputAndLogic()
         {
             Vector3 accel = GetCurrentAcceleration();
-            bool isShaking = GetCurrentShaking();
-            
-            // Si la botella está boca abajo (Y > -0.2f), permitimos que caiga
+            bool rawShakeInput = GetCurrentShaking();
+
+            if (rawShakeInput)
+            {
+                _shakeTimer = _shakeMemoryDuration;
+            }
+            _shakeTimer -= Time.deltaTime;
+
+            bool isEffectiveShaking = _shakeTimer > 0;
             bool isPouringPosition = accel.y > -0.2f; 
 
             if (!isPouringPosition) 
@@ -79,11 +94,31 @@ namespace _Game.Scripts.Puzzles
             float flowRate = 0f;
             switch (_currentDifficulty)
             {
-                case 0: flowRate = _pourSpeed; break;
-                case 1: flowRate = isShaking ? _pourSpeed : _pourSpeed * _viscousMultiplier; break;
-                case 2:
-                    if (_currentFillAmount > 0.5f) flowRate = _pourSpeed;
-                    else flowRate = isShaking ? _pourSpeed : 0;
+                case 0: // Fácil
+                    flowRate = _pourSpeed; 
+                    break;
+            
+                case 1: // Viscoso
+                    if (isEffectiveShaking) 
+                    {
+                        flowRate = _pourSpeed;
+                    }
+                    else 
+                    {
+                        flowRate = _pourSpeed * _viscousMultiplier;
+                    }
+                    break;
+            
+                case 2: // Atasco
+                    if (_currentFillAmount > 0.5f) 
+                    {
+                        flowRate = _pourSpeed;
+                    }
+                    else 
+                    {
+                        if (isEffectiveShaking) flowRate = _pourSpeed;
+                        else flowRate = 0;
+                    }
                     break;
             }
 
@@ -99,10 +134,10 @@ namespace _Game.Scripts.Puzzles
 
         private void UpdateVisuals()
         {
+           // ... (Este método NO cambia) ...
             if (_bottleVisualTransform == null) return;
 
             Quaternion targetRotation;
-
             #if UNITY_EDITOR
             {
                 Quaternion simulatedTilt = Quaternion.Euler(0, _simulatedTiltAngle, 0);
@@ -116,41 +151,25 @@ namespace _Game.Scripts.Puzzles
                 targetRotation = _initialVisualRotation * gravityTilt;
             }
             #endif
-
-            _bottleVisualTransform.localRotation = Quaternion.Slerp(
-                _bottleVisualTransform.localRotation, 
-                targetRotation, 
-                Time.deltaTime * _visualSmoothSpeed
-            );
+            _bottleVisualTransform.localRotation = Quaternion.Slerp(_bottleVisualTransform.localRotation, targetRotation, Time.deltaTime * _visualSmoothSpeed);
         }
 
-        // --- AQUÍ ESTÁ LA MAGIA CORREGIDA ---
         private void UpdateLiquidVisuals()
         {
+             // ... (Este método NO cambia, usa la versión de los puntos que te pasé antes) ...
             if (_liquidRenderer == null || _pointBase == null || _pointTapon == null) return;
 
-            // 1. CALCULAR NIVEL DEL AGUA (WORLD SPACE)
-            // No nos importa cuál es la base y cuál el tapón. Nos importa cuál está más alto en el mundo.
             float y1 = _pointBase.position.y;
             float y2 = _pointTapon.position.y;
-
-            // Buscamos el punto físico más bajo y más alto de la botella en este instante
             float lowestY = Mathf.Min(y1, y2);
             float highestY = Mathf.Max(y1, y2);
-
-            // Interpolamos: Si FillAmount es 1, el agua llega al punto más alto (highestY).
-            // Si FillAmount es 0, el agua baja al punto más bajo (lowestY).
             float currentWaterLevelY = Mathf.Lerp(lowestY, highestY, _currentFillAmount);
 
-            // IMPORTANTE: El shader dibuja "por debajo" de este nivel.
-            // Pasamos el valor al shader
             _liquidRenderer.material.SetFloat("_FillAmount", currentWaterLevelY);
 
-
-            // 2. WOBBLE (Sin cambios, solo lógica de agitación)
+            // WOBBLE
             float deltaTime = Time.deltaTime;
             float wobbleInput = 0f;
-
             #if UNITY_EDITOR
                 if (Input.GetKey(KeyCode.D)) wobbleInput = 1f; 
                 else if (Input.GetKey(KeyCode.A)) wobbleInput = -1f;
@@ -160,7 +179,6 @@ namespace _Game.Scripts.Puzzles
 
             _wobbleAddX = Mathf.Lerp(_wobbleAddX, 0, deltaTime * _wobbleRecovery);
             _wobbleAddZ = Mathf.Lerp(_wobbleAddZ, 0, deltaTime * _wobbleRecovery);
-
             _timeWobble += deltaTime;
             float pulse = 2 * Mathf.PI * 1.0f; 
 
@@ -177,33 +195,42 @@ namespace _Game.Scripts.Puzzles
             _liquidRenderer.material.SetFloat("_WobbleZ", _wobbleAmountZ);
         }
 
-        // --- GIZMOS PARA DEBUGUEAR (Verás líneas en la escena) ---
-        private void OnDrawGizmos()
+        // --- NUEVO MÉTODO: CONTROL DE PARTÍCULAS ---
+        private void UpdatePouringEffects()
         {
-            if (_pointBase == null || _pointTapon == null) return;
+            if (_pouringParticleSystem == null) return;
 
-            // Dibuja una esfera Verde en el tapón y Roja en la base
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(_pointBase.position, 0.05f);
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(_pointTapon.position, 0.05f);
+            // ¿Se está vertiendo líquido Y queda líquido en la botella?
+            bool isPouring = _currentFlowRate > 0 && _currentFillAmount > 0;
 
-            // Dibuja una línea azul donde está el nivel del agua calculado
-            float y1 = _pointBase.position.y;
-            float y2 = _pointTapon.position.y;
-            float lowestY = Mathf.Min(y1, y2);
-            float highestY = Mathf.Max(y1, y2);
-            float currentWaterLevelY = Mathf.Lerp(lowestY, highestY, _currentFillAmount);
+            if (isPouring)
+            {
+                // Si debería estar vertiendo y está apagado, enciéndelo
+                if (!_pouringParticleSystem.isPlaying)
+                {
+                    _pouringParticleSystem.Play();
+                }
 
-            Gizmos.color = Color.cyan;
-            Vector3 center = Vector3.Lerp(_pointBase.position, _pointTapon.position, 0.5f);
-            center.y = currentWaterLevelY;
-            // Dibujamos un plano imaginario del agua
-            Gizmos.DrawCube(center, new Vector3(0.5f, 0.01f, 0.5f));
+                // OPCIONAL (Nivel PRO): Modificar la cantidad de partículas según el flujo.
+                // Si cae poco (viscoso), salen pocas partículas. Si cae mucho, salen muchas.
+                var emissionModule = _pouringParticleSystem.emission;
+                // Mapeamos el flujo (ej. 0.1 a 0.5) a una cantidad de partículas (ej. 10 a 50 por segundo)
+                emissionModule.rateOverTime = _currentFlowRate * 100f; 
+            }
+            else
+            {
+                // Si NO debería estar vertiendo y está encendido, apágalo
+                // Usamos Stop con false para que las partículas que ya han salido terminen de caer de forma natural
+                if (_pouringParticleSystem.isPlaying)
+                {
+                    _pouringParticleSystem.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+                }
+            }
         }
+        // --------------------------------------------
 
-        // --- HELPERS ---
-        private Vector3 GetCurrentAcceleration()
+        // ... (Helpers GetCurrentAcceleration y GetCurrentShaking NO cambian) ...
+         private Vector3 GetCurrentAcceleration()
         {
             #if UNITY_EDITOR
                 float tiltSpeed = 150f * Time.deltaTime;

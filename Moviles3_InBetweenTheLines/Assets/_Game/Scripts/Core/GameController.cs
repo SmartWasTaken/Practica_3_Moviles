@@ -113,6 +113,11 @@ namespace _Game.Scripts.Core
         {
             if (!_isGameActive) return;
             _isGameActive = false;
+            
+            if (_levelManager != null)
+            {
+                _levelManager.SetPuzzleUI(false);
+            }
 
             int levelScore = _levelManager.CurrentScore;
             int currentLives = _levelManager.CurrentLives;

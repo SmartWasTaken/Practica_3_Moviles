@@ -150,6 +150,14 @@ namespace _Game.Scripts.Core
                 OnLevelFinished?.Invoke(false); 
             }
         }
+        
+        public void SetPuzzleUI(bool visible)
+        {
+            if (_currentPuzzle != null)
+            {
+                _currentPuzzle.SetUIVisibility(visible);
+            }
+        }
 
         private void ClearCurrentLevel()
         {

@@ -26,6 +26,10 @@ namespace _Game.Scripts.Puzzles
                 _levelManager.OnPuzzleSolved();
             }
         }
+        
+        public virtual void SetUIVisibility(bool isVisible)
+        {
+        }
 
         public virtual void Initialize(LevelManager manager, int difficulty) 
         {
