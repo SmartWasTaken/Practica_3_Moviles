@@ -4,25 +4,28 @@ using UnityEngine.UI;
 
 namespace _Game.Scripts.Puzzles
 {
-    public class RealCompassPuzzle : PuzzleBase
+    public class CheckpointCompassPuzzle : PuzzleBase
     {
         [Header("Referencias UI")]
         [SerializeField] private RectTransform _rotatingDial;   // El disco con letras N,S,E,O
         [SerializeField] private Image _staticNeedleImage;      // La flecha fija del centro
 
         [Header("Configuración")]
-        [SerializeField] private float _compassSmoothTime = 0.2f;
-        [SerializeField] private float _tolerance = 20f; // Margen de error (grados)
-        [SerializeField] private float _holdTimeForStaticLevels = 1.0f; // Tiempo para niveles 0 y 1
+        [SerializeField] private float _compassSmoothTime = 0.1f; // El gyro es rápido, bajamos el suavizado
+        [SerializeField] private float _tolerance = 20f; 
+        [SerializeField] private float _holdTimeForStaticLevels = 1.0f;
 
-        // ESTADO INTERNO
-        private float _currentHeading;
+        // ESTADO
+        private float _currentHeading; // 0 a 360
         private float _compassVelocity;
         
+        // Variables Giroscopio
+        private float _initialHeadingOffset = 0f; // Para calibrar el "0" al inicio
+
         // Checkpoints
-        private bool _hasVisitedEast = false; // ¿Ya hemos pasado por el checkpoint?
-        private float _holdTimer = 0f;        // Para niveles 0 y 1
-        private bool _isWinning = false;      // Para bloquear lógica al ganar
+        private bool _hasVisitedEast = false;
+        private float _holdTimer = 0f;
+        private bool _isWinning = false;
 
         // Debug PC
         private float _simulatedHeading = 0f;
@@ -31,27 +34,32 @@ namespace _Game.Scripts.Puzzles
         {
             base.Initialize(manager, difficulty);
             
-            Input.compass.enabled = true;
-            Input.location.Start();
+            // 1. ACTIVAR GIROSCOPIO (En vez de Brújula)
+            Input.gyro.enabled = true;
+
+            // 2. CALIBRAR EL "NORTE"
+            // Guardamos hacia dónde mira el móvil AHORA MISMO para que eso sea el "0"
+            // Damos un pequeño delay o tomamos el valor inicial
+            _initialHeadingOffset = GetRawGyroY(); 
 
             // Reseteamos estados
             _hasVisitedEast = false;
             _holdTimer = 0f;
             _isWinning = false;
-            
-            // Si quieres probar directamente el estado amarillo en el editor, cambia esto a true temporalmente
-            // _hasVisitedEast = true; 
+            _simulatedHeading = 0f; // Reset simulación PC
         }
 
         private void Update()
         {
             if (isSolved || _isWinning) return;
 
-            // 1. INPUT
-            float rawHeading = GetHeading();
+            // 1. INPUT (GIROSCOPIO RELATIVO)
+            float rawHeading = GetRelativeHeading();
+            
+            // Suavizamos un poco, aunque el gyro ya es suave
             _currentHeading = Mathf.SmoothDampAngle(_currentHeading, rawHeading, ref _compassVelocity, _compassSmoothTime);
 
-            // 2. LÓGICA
+            // 2. LÓGICA (Igual que antes)
             CheckLogic();
 
             // 3. VISUALES
@@ -60,21 +68,15 @@ namespace _Game.Scripts.Puzzles
 
         private void CheckLogic()
         {
-            // Definimos el objetivo según la dificultad y el estado actual
             float targetAngle = 0f;
             
             switch (_currentDifficulty)
             {
-                case 0: targetAngle = 90f; break;  // Solo Este
-                case 1: targetAngle = 270f; break; // Solo Oeste
-                case 2: 
-                    // Si NO hemos visitado el Este, el objetivo es 90.
-                    // Si YA lo visitamos, el objetivo cambia a 270.
-                    targetAngle = _hasVisitedEast ? 270f : 90f; 
-                    break;
+                case 0: targetAngle = 90f; break;  // Busca Derecha
+                case 1: targetAngle = 270f; break; // Busca Izquierda
+                case 2: targetAngle = _hasVisitedEast ? 270f : 90f; break; // Checkpoint
             }
 
-            // Comprobamos si estamos mirando al objetivo
             float angleDiff = Mathf.DeltaAngle(_currentHeading, targetAngle);
             bool isAligned = Mathf.Abs(angleDiff) < _tolerance;
 
@@ -82,40 +84,33 @@ namespace _Game.Scripts.Puzzles
             {
                 if (_currentDifficulty == 2)
                 {
-                    // LÓGICA NIVEL 2 (CHECKPOINT)
                     if (!_hasVisitedEast)
                     {
-                        // FASE 1: Acabamos de encontrar el ESTE
-                        _hasVisitedEast = true;
-                        // Opcional: Vibrar aquí para dar feedback de "Checkpoint"
-                        // Handheld.Vibrate(); 
+                        _hasVisitedEast = true; // Checkpoint conseguido
+                        // Feedback: Vibración pequeña si quieres
                     }
                     else
                     {
-                        // FASE 2: Ya teníamos el Este, y ahora estamos en el OESTE
-                        // ¡VICTORIA!
-                        _isWinning = true;
-                        if(_staticNeedleImage) _staticNeedleImage.color = Color.green; // Feedback instantáneo
-                        CompletePuzzle();
+                        WinLevel(); // Final conseguido
                     }
                 }
                 else
                 {
-                    // LÓGICA NIVEL 0 y 1 (AGUANTAR)
                     _holdTimer += Time.deltaTime;
-                    if (_holdTimer >= _holdTimeForStaticLevels)
-                    {
-                        _isWinning = true;
-                        if(_staticNeedleImage) _staticNeedleImage.color = Color.green;
-                        CompletePuzzle();
-                    }
+                    if (_holdTimer >= _holdTimeForStaticLevels) WinLevel();
                 }
             }
             else
             {
-                // Si nos desalineamos en niveles 0 y 1, reseteamos timer
                 if (_currentDifficulty != 2) _holdTimer = 0f;
             }
+        }
+
+        private void WinLevel()
+        {
+            _isWinning = true;
+            if(_staticNeedleImage) _staticNeedleImage.color = Color.green;
+            CompletePuzzle();
         }
 
         private void UpdateUI()
@@ -131,44 +126,58 @@ namespace _Game.Scripts.Puzzles
             {
                 if (_currentDifficulty == 2)
                 {
-                    // ESTADO NIVEL 2
-                    if (_hasVisitedEast)
-                    {
-                        // Checkpoint conseguido (buscando Oeste) -> AMARILLO
-                        _staticNeedleImage.color = Color.yellow;
-                    }
-                    else
-                    {
-                        // Empezando (buscando Este) -> BLANCO
-                        // Opcional: Si el jugador se alinea con el Este (antes de que cambie),
-                        // podrías ponerlo verde momentáneamente, pero Blanco está bien para "Neutro".
-                        _staticNeedleImage.color = Color.white;
-                    }
+                    if (_hasVisitedEast) _staticNeedleImage.color = Color.yellow; // Buscando OESTE
+                    else _staticNeedleImage.color = Color.white;  // Buscando ESTE
                 }
                 else
                 {
-                    // ESTADO NIVEL 0 y 1
-                    // Calculamos alineación solo para pintar la flecha
+                    // Lógica Dificultad 0 y 1
                     float target = _currentDifficulty == 0 ? 90f : 270f;
                     bool aligned = Mathf.Abs(Mathf.DeltaAngle(_currentHeading, target)) < _tolerance;
-                    
                     _staticNeedleImage.color = aligned ? Color.green : Color.white;
                 }
             }
         }
 
-        private float GetHeading()
+        // --- MAGIA DEL GIROSCOPIO ---
+
+        // Obtiene el ángulo Y actual del giroscopio (0-360)
+        private float GetRawGyroY()
         {
             #if UNITY_EDITOR
-                float speed = 150f * Time.deltaTime; // Un poco más rápido para testear
-                if (Input.GetKey(KeyCode.D)) _simulatedHeading += speed;
-                if (Input.GetKey(KeyCode.A)) _simulatedHeading -= speed;
-                
-                if(_simulatedHeading >= 360) _simulatedHeading -= 360;
-                if(_simulatedHeading < 0) _simulatedHeading += 360;
                 return _simulatedHeading;
             #else
-                return Input.compass.magneticHeading;
+                // Convertimos la actitud del gyro (que es complicada) a una rotación de Unity
+                Quaternion q = Input.gyro.attitude;
+                // Reorientar para que coincida con el sistema de coordenadas de Unity
+                Quaternion rot = new Quaternion(q.x, q.y, -q.z, -q.w);
+                return rot.eulerAngles.y; // Devolvemos la rotación en el eje vertical
+            #endif
+        }
+
+        // Calcula el ángulo relativo al inicio del nivel
+        private float GetRelativeHeading()
+        {
+            float currentRaw = GetRawGyroY();
+            
+            #if UNITY_EDITOR
+                // En el editor simulamos directamente el heading relativo
+                float speed = 150f * Time.deltaTime;
+                if (Input.GetKey(KeyCode.D)) _simulatedHeading += speed; // Derecha
+                if (Input.GetKey(KeyCode.A)) _simulatedHeading -= speed; // Izquierda
+                return _simulatedHeading; 
+            #else
+                // En móvil: Restamos el offset inicial para que al empezar sea 0
+                // DeltaAngle maneja el salto de 360 a 0 automáticamente
+                float relative = Mathf.DeltaAngle(_initialHeadingOffset, currentRaw);
+                
+                // Convertimos de -180/180 a 0/360 si prefieres, o lo dejamos así.
+                // Mathf.DeltaAngle devuelve -180 a 180.
+                // Si el gyro gira a la derecha, el ángulo aumenta.
+                
+                // Importante: El sentido de giro del Gyro a veces es inverso al de la brújula visual.
+                // Si ves que al girar a la derecha la brújula gira al revés, pon un menos: return -relative;
+                return relative;
             #endif
         }
         

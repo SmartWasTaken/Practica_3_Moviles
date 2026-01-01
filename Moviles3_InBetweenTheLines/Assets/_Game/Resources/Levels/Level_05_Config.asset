@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62b68c69bd88470bbd89758fbad2331b, type: 3}
-  m_Name: Level_02_Config
+  m_Name: Level_05_Config
   m_EditorClassIdentifier: Assembly-CSharp::_Game.Scripts.Data.LevelConfig
-  levelID: 1
-  LvlName: El sol
+  levelID: 4
+  LvlName: Fugas de agua
   backgroundColor: {r: 0.4067732, g: 1, b: 0, a: 1}
-  puzzlePrefab: {fileID: 419981192526610459, guid: 5a823ec31332d654f841fa8cb59ea6b4, type: 3}
+  puzzlePrefab: {fileID: 6031678231018183411, guid: 38f040ec67c9c5c4c84fb5e1146f8c9f, type: 3}
   variations:
-  - variationName: Este
-    riddleText: The sun is rising up, but he feels alone
+  - variationName: Fuga1
+    riddleText: You can't lose any more water
     timeLimit: 15
     difficultyLevel: 0
-    tutorialRequired: 1
-  - variationName: Oeste
-    riddleText: The sun is setting, but it doesn't want to go alone
+    tutorialRequired: 0
+  - variationName: Fuga2
+    riddleText: This is the last supply of water
     timeLimit: 10
     difficultyLevel: 1
-    tutorialRequired: 1
-  - variationName: Trayectoria
-    riddleText: The sun wants you to fill in his journey
+    tutorialRequired: 0
+  - variationName: Fuga3
+    riddleText: Don't let the water run out
     timeLimit: 8
     difficultyLevel: 2
-    tutorialRequired: 1
+    tutorialRequired: 0
