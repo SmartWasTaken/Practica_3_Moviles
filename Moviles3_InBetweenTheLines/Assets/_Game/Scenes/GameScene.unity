@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &14240877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5589,8 +5589,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c8bb6ea4672dbb9458db8bc1bb2d83f0, type: 2}
   - {fileID: 11400000, guid: ac0ac1f36e058fa4ebe3fdd6ab1233dd, type: 2}
   - {fileID: 11400000, guid: b602c09e26ee0ad478c5201ecc8f70e9, type: 2}
+  - {fileID: 11400000, guid: 4e763db43e99f2d44a8430fed9512ca2, type: 2}
   _pityScore: 50
-  _debugLevel: {fileID: 11400000, guid: b602c09e26ee0ad478c5201ecc8f70e9, type: 2}
+  _debugLevel: {fileID: 11400000, guid: 4e763db43e99f2d44a8430fed9512ca2, type: 2}
   _debugDifficulty: 2
 --- !u!1 &1544120590
 GameObject:
