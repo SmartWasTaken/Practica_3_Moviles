@@ -5,6 +5,7 @@ using _Game.Scripts.Puzzles;
 using System;
 using _Game.Scripts.Core.Game;
 using _Game.Scripts.Core.UI;
+using UnityEngine.UI;
 
 namespace _Game.Scripts.Core
 {
@@ -15,6 +16,7 @@ namespace _Game.Scripts.Core
         [Header("Referencias")]
         [SerializeField] private Transform _puzzleSpawnPoint;
         [SerializeField] private Camera _mainCamera;
+        [SerializeField] private Image _backgroundImage;
         
         [Header("UI Referencias")]
         [SerializeField] private GameUIManager _uiManager;
@@ -49,7 +51,8 @@ namespace _Game.Scripts.Core
         string textToShow = "";
         int finalDifficulty = targetDifficulty;
         TutorialType requiredTutorial = TutorialType.None;
-    
+        Sprite backgroundToUse = null;
+        
         LevelVariation selectedVariation = new LevelVariation();
         bool variationFound = false;
     
@@ -66,6 +69,7 @@ namespace _Game.Scripts.Core
             textToShow = selectedVariation.riddleText;
             finalDifficulty = targetDifficulty; 
             requiredTutorial = selectedVariation.tutorialRequired;
+            backgroundToUse = selectedVariation.backgroundSprite;
         }
         else
         {
@@ -73,7 +77,14 @@ namespace _Game.Scripts.Core
             textToShow = "Configuración no encontrada";
         }
         
-        _mainCamera.backgroundColor = config.backgroundColor;
+        if (_backgroundImage != null)
+        {
+            if (backgroundToUse != null)
+            {
+                _backgroundImage.sprite = backgroundToUse;
+                _backgroundImage.enabled = true;
+            }
+        }
         
         if (_uiManager != null)
         {

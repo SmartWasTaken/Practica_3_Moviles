@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_Game.Scripts.Data.LevelConfig
   levelID: 5
   LvlName: Darkness
-  backgroundColor: {r: 0.4067732, g: 1, b: 0, a: 1}
+  backgroundSprite: {fileID: 21300000, guid: ea52698ec40a92e4281b5e7c949458c7, type: 3}
   puzzlePrefab: {fileID: 7958678473222132216, guid: 66362589360622e448ebf38ab1846623, type: 3}
   variations:
   - variationName: Brightness

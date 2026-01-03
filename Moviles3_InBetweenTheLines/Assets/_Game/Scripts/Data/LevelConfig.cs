@@ -13,7 +13,10 @@ namespace _Game.Scripts.Data
         public float timeLimit;
         public int difficultyLevel;
         
-        public TutorialType tutorialRequired; 
+        public TutorialType tutorialRequired;
+        
+        [Header("Configuración Visual")]
+        public Sprite backgroundSprite; 
     }
 
     [CreateAssetMenu(fileName = "NewLevel", menuName = "Sensory/LevelConfig")]
@@ -22,9 +25,6 @@ namespace _Game.Scripts.Data
         [Header("Identificación")]
         public string levelID;
         public string LvlName; 
-        
-        [Header("Configuración Visual")]
-        public Color backgroundColor; 
 
         [Header("Lógica")]
         public PuzzleBase puzzlePrefab;
