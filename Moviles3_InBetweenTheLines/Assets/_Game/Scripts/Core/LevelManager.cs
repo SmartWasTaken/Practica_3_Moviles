@@ -147,6 +147,7 @@ namespace _Game.Scripts.Core
 
         private IEnumerator FinishSequence(bool win)
         {
+            SetPuzzleUI(false);
             if (win)
             {
                 if(_uiManager != null) _uiManager.HideHUD();

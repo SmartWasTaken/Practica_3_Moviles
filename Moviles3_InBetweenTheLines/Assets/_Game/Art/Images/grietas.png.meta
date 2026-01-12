@@ -1,0 +1,2808 @@
+fileFormatVersion: 2
+guid: ddbbf4461339c14429da0b7acc72a344
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3863830133488030261
+    second: grietas_0
+  - first:
+      213: -5374707449814371793
+    second: grietas_1
+  - first:
+      213: -6921435799426878705
+    second: grietas_2
+  - first:
+      213: -5360025272838182271
+    second: grietas_3
+  - first:
+      213: -7050742907280584825
+    second: grietas_4
+  - first:
+      213: -8161240465006836405
+    second: grietas_5
+  - first:
+      213: -6288308761017573591
+    second: grietas_6
+  - first:
+      213: -2257850178826126522
+    second: grietas_7
+  - first:
+      213: 1278627666521399466
+    second: grietas_8
+  - first:
+      213: 5832567959640947850
+    second: grietas_9
+  - first:
+      213: 8557233468477560684
+    second: grietas_10
+  - first:
+      213: -3075583419340921591
+    second: grietas_11
+  - first:
+      213: 3582388163734788475
+    second: grietas_12
+  - first:
+      213: 2825779600931150185
+    second: grietas_13
+  - first:
+      213: 9180565889494837882
+    second: grietas_14
+  - first:
+      213: -4404386785682935443
+    second: grietas_15
+  - first:
+      213: 1880625710989163143
+    second: grietas_16
+  - first:
+      213: -172019791737336094
+    second: grietas_17
+  - first:
+      213: 6446103764587417361
+    second: grietas_18
+  - first:
+      213: -2690088736882666116
+    second: grietas_19
+  - first:
+      213: -4661782439455428893
+    second: grietas_20
+  - first:
+      213: 3136830866774868026
+    second: grietas_21
+  - first:
+      213: -5785609598641735378
+    second: grietas_22
+  - first:
+      213: -1725518226541308589
+    second: grietas_23
+  - first:
+      213: 702512708067785607
+    second: grietas_24
+  - first:
+      213: -54163874949344365
+    second: grietas_25
+  - first:
+      213: -5078050068965995329
+    second: grietas_26
+  - first:
+      213: -8597103479455786249
+    second: grietas_27
+  - first:
+      213: -4556723577669118509
+    second: grietas_28
+  - first:
+      213: -2359982205594683249
+    second: grietas_29
+  - first:
+      213: 7889265527707429367
+    second: grietas_30
+  - first:
+      213: -6016445748077826924
+    second: grietas_31
+  - first:
+      213: 6635408049362645833
+    second: grietas_32
+  - first:
+      213: 4268100105869476297
+    second: grietas_33
+  - first:
+      213: 4860883162809302048
+    second: grietas_34
+  - first:
+      213: -8358271807368339173
+    second: grietas_35
+  - first:
+      213: -5730591711537277153
+    second: grietas_36
+  - first:
+      213: -6114799434723364128
+    second: grietas_37
+  - first:
+      213: -8333621786132848575
+    second: grietas_38
+  - first:
+      213: -4153596925461737901
+    second: grietas_39
+  - first:
+      213: 4651898420955930557
+    second: grietas_40
+  - first:
+      213: 1581570196893455291
+    second: grietas_41
+  - first:
+      213: 5139462873056457989
+    second: grietas_42
+  - first:
+      213: 6609295065852579746
+    second: grietas_43
+  - first:
+      213: 4879814523661814407
+    second: grietas_44
+  - first:
+      213: -6817195425630324897
+    second: grietas_45
+  - first:
+      213: -2923059413267510275
+    second: grietas_46
+  - first:
+      213: 1711657240277646787
+    second: grietas_47
+  - first:
+      213: 8323640760049195729
+    second: grietas_48
+  - first:
+      213: 3286536100197685693
+    second: grietas_49
+  - first:
+      213: 7097009170204551074
+    second: grietas_50
+  - first:
+      213: -1313033041966638802
+    second: grietas_51
+  - first:
+      213: 8212196999163172958
+    second: grietas_52
+  - first:
+      213: 8249804317863330054
+    second: grietas_53
+  - first:
+      213: 1534218132553786548
+    second: grietas_54
+  - first:
+      213: 4185040231550761195
+    second: grietas_55
+  - first:
+      213: -7478860886641036071
+    second: grietas_56
+  - first:
+      213: 9165563520706303432
+    second: grietas_57
+  - first:
+      213: -5177981611974784321
+    second: grietas_58
+  - first:
+      213: 8027619367621331163
+    second: grietas_59
+  - first:
+      213: 5396585302743685623
+    second: grietas_60
+  - first:
+      213: 3106481512845069815
+    second: grietas_61
+  - first:
+      213: -8668791190549146521
+    second: grietas_62
+  - first:
+      213: 4955303307523654276
+    second: grietas_63
+  - first:
+      213: 1095929964418979340
+    second: grietas_64
+  - first:
+      213: -5042127413169610027
+    second: grietas_65
+  - first:
+      213: -1058393212468569468
+    second: grietas_66
+  - first:
+      213: -375945670428571579
+    second: grietas_67
+  - first:
+      213: -8177958499242138120
+    second: grietas_68
+  - first:
+      213: 8582942247397353817
+    second: grietas_69
+  - first:
+      213: -7837672101103712086
+    second: grietas_70
+  - first:
+      213: -6395977274755462668
+    second: grietas_71
+  - first:
+      213: 9106256590546634346
+    second: grietas_72
+  - first:
+      213: 3433198978569972686
+    second: grietas_73
+  - first:
+      213: 705456335939855770
+    second: grietas_74
+  - first:
+      213: -8994690287847448669
+    second: grietas_75
+  - first:
+      213: 3712346533952183178
+    second: grietas_76
+  - first:
+      213: 8714638399066846627
+    second: grietas_77
+  - first:
+      213: 8399108305718778351
+    second: grietas_78
+  - first:
+      213: -1404739941194428506
+    second: grietas_79
+  - first:
+      213: 5557465401633429366
+    second: grietas_80
+  - first:
+      213: -2601886223406421636
+    second: grietas_81
+  - first:
+      213: 8438606851484936703
+    second: grietas_82
+  - first:
+      213: -7636908422454555246
+    second: grietas_83
+  - first:
+      213: -5325389644053156284
+    second: grietas_84
+  - first:
+      213: 6806006923253776530
+    second: grietas_85
+  - first:
+      213: -4142977011158295829
+    second: grietas_86
+  - first:
+      213: -7756582692945878620
+    second: grietas_87
+  - first:
+      213: -324433568632460764
+    second: grietas_88
+  - first:
+      213: -2054111575155755676
+    second: grietas_89
+  - first:
+      213: 7688294367836385746
+    second: grietas_90
+  - first:
+      213: 3066039454945925873
+    second: grietas_91
+  - first:
+      213: 7365742938128588196
+    second: grietas_92
+  - first:
+      213: -2223971099919758509
+    second: grietas_93
+  - first:
+      213: -1326729594632412950
+    second: grietas_94
+  - first:
+      213: -2347455073608784916
+    second: grietas_95
+  - first:
+      213: -2010448459841780786
+    second: grietas_96
+  - first:
+      213: -14733619812921244
+    second: grietas_97
+  - first:
+      213: 7088086106527453562
+    second: grietas_98
+  - first:
+      213: -2765414887472207603
+    second: grietas_99
+  - first:
+      213: 6938210963196850513
+    second: grietas_100
+  - first:
+      213: -8997516893337214476
+    second: grietas_101
+  - first:
+      213: -8250536790475160870
+    second: grietas_102
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: grietas_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 337
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5321103f8051f9530800000000000000
+      internalID: 3863830133488030261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_1
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 326
+        width: 10
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f223b220d043965b0800000000000000
+      internalID: -5374707449814371793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_2
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 335
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f033d7fcfce12ff90800000000000000
+      internalID: -6921435799426878705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_3
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 320
+        width: 27
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18a2d59b96d5d95b0800000000000000
+      internalID: -5360025272838182271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_4
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 322
+        width: 12
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78f8fe8aeaab62e90800000000000000
+      internalID: -7050742907280584825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_5
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 284
+        width: 14
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4549b489037dbe80800000000000000
+      internalID: -8161240465006836405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_6
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 340
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92f129daf707bb8a0800000000000000
+      internalID: -6288308761017573591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_7
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 333
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64b340799318aa0e0800000000000000
+      internalID: -2257850178826126522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_8
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 275
+        width: 58
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa0aef696199eb110800000000000000
+      internalID: 1278627666521399466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_9
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 200
+        width: 38
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8c39b238a171f050800000000000000
+      internalID: 5832567959640947850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_10
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 316
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6750bc508661c670800000000000000
+      internalID: 8557233468477560684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_11
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 323
+        width: 17
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9056a1ddc255155d0800000000000000
+      internalID: -3075583419340921591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_12
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 318
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b79d9fafd0337b130800000000000000
+      internalID: 3582388163734788475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_13
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 321
+        width: 21
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 969db0f439f273720800000000000000
+      internalID: 2825779600931150185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_14
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 320
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7a6868290ce76f70800000000000000
+      internalID: 9180565889494837882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_15
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 292
+        width: 29
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d61b1f9cd8970e2c0800000000000000
+      internalID: -4404386785682935443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_16
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 312
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78ab9f2ce13591a10800000000000000
+      internalID: 1880625710989163143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_17
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 287
+        width: 6
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2eec82b29ecdc9df0800000000000000
+      internalID: -172019791737336094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_18
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 233
+        width: 30
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11f8a819839257950800000000000000
+      internalID: 6446103764587417361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_19
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 238
+        width: 22
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7554d7eb82eaaad0800000000000000
+      internalID: -2690088736882666116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_20
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 267
+        width: 23
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3eeea1c02950e4fb0800000000000000
+      internalID: -4661782439455428893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_21
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 276
+        width: 13
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a30c89ebd03488b20800000000000000
+      internalID: 3136830866774868026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_22
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 280
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e297ed739b265bfa0800000000000000
+      internalID: -5785609598641735378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_23
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 253
+        width: 31
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3551b8da05abd08e0800000000000000
+      internalID: -1725518226541308589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_24
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 266
+        width: 23
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78bf39ef593dfb900800000000000000
+      internalID: 702512708067785607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_25
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 272
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3935cf12e329f3ff0800000000000000
+      internalID: -54163874949344365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_26
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 256
+        width: 46
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbc42afed542789b0800000000000000
+      internalID: -5078050068965995329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_27
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 256
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fa53c15fe3f0b880800000000000000
+      internalID: -8597103479455786249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_28
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 233
+        width: 44
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d592657c0443c0c0800000000000000
+      internalID: -4556723577669118509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_29
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 264
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f88394f00b8af3fd0800000000000000
+      internalID: -2359982205594683249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_30
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 231
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f96cb5c23d4c7d60800000000000000
+      internalID: 7889265527707429367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_31
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 122
+        width: 48
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49c6967f77a418ca0800000000000000
+      internalID: -6016445748077826924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_32
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 249
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 943370a0774b51c50800000000000000
+      internalID: 6635408049362645833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_33
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 127
+        width: 61
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c14824de665b3b30800000000000000
+      internalID: 4268100105869476297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_34
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 245
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02cfce58b73557340800000000000000
+      internalID: 4860883162809302048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_35
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 228
+        width: 29
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b11e5a14314710c80800000000000000
+      internalID: -8358271807368339173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_36
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 250
+        width: 6
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f17d5094339d870b0800000000000000
+      internalID: -5730591711537277153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_37
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 107
+        width: 65
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e2fd8ccf4ed32ba0800000000000000
+      internalID: -6114799434723364128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_38
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 224
+        width: 36
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14068119327095c80800000000000000
+      internalID: -8333621786132848575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_39
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 151
+        width: 44
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35ec2bd5a957b56c0800000000000000
+      internalID: -4153596925461737901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_40
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 230
+        width: 25
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbf574097fcde8040800000000000000
+      internalID: 4651898420955930557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_41
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 226
+        width: 17
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb3dd2de6bdd2f510800000000000000
+      internalID: 1581570196893455291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_42
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 219
+        width: 26
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 505b6d4c04a035740800000000000000
+      internalID: 5139462873056457989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_43
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 217
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2af82e748dee8bb50800000000000000
+      internalID: 6609295065852579746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_44
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 200
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78a87a4747598b340800000000000000
+      internalID: 4879814523661814407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_45
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 216
+        width: 30
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f57f2e221e47461a0800000000000000
+      internalID: -6817195425630324897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_46
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 182
+        width: 18
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfb04de53f43f67d0800000000000000
+      internalID: -2923059413267510275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_47
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 136
+        width: 69
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cd79f7f03701c710800000000000000
+      internalID: 1711657240277646787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_48
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 199
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dad1b4bb23838370800000000000000
+      internalID: 8323640760049195729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_49
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 199
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db9d7c99b2f1c9d20800000000000000
+      internalID: 3286536100197685693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_50
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 187
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a76bbd1d34ad7260800000000000000
+      internalID: 7097009170204551074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_51
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 177
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e295a33b76b27cde0800000000000000
+      internalID: -1313033041966638802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_52
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 161
+        width: 15
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5856a029a597f170800000000000000
+      internalID: 8212196999163172958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_53
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 155
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6014ab851513d7270800000000000000
+      internalID: 8249804317863330054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_54
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 165
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b4e4de4343aa4510800000000000000
+      internalID: 1534218132553786548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_55
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 124
+        width: 37
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be83d44daef341a30800000000000000
+      internalID: 4185040231550761195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_56
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 140
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d4b237f5afb53890800000000000000
+      internalID: -7478860886641036071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_57
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 137
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c55af9f57f923f70800000000000000
+      internalID: 9165563520706303432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_58
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 152
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fba0db4782d1428b0800000000000000
+      internalID: -5177981611974784321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_59
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 129
+        width: 12
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd88d1f5845d76f60800000000000000
+      internalID: 8027619367621331163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_60
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 96
+        width: 34
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f991229db584ea40800000000000000
+      internalID: 5396585302743685623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_61
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 137
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fdc2722a707c1b20800000000000000
+      internalID: 3106481512845069815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_62
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 69
+        width: 47
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7645847675442b780800000000000000
+      internalID: -8668791190549146521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_63
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 108
+        width: 12
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48204479a16c4c440800000000000000
+      internalID: 4955303307523654276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_64
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 81
+        width: 48
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0656e30f76853f00800000000000000
+      internalID: 1095929964418979340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_65
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 92
+        width: 35
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d224c105d3c60ab0800000000000000
+      internalID: -5042127413169610027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_66
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 101
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48a502a1bf4df41f0800000000000000
+      internalID: -1058393212468569468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_67
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 97
+        width: 19
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5484243976f58caf0800000000000000
+      internalID: -375945670428571579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_68
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 105
+        width: 19
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f529c8d21e028e80800000000000000
+      internalID: -8177958499242138120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_69
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 111
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 959efc7ef7cbc1770800000000000000
+      internalID: 8582942247397353817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_70
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 103
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa849b3ffbefa3390800000000000000
+      internalID: -7837672101103712086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_71
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 25
+        width: 30
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f9cab25e8cec37a0800000000000000
+      internalID: -6395977274755462668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_72
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 1
+        width: 41
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6687114f1cef5e70800000000000000
+      internalID: 9106256590546634346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_73
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 103
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecba5e8f74c25af20800000000000000
+      internalID: 3433198978569972686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_74
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 78
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a956e34ccc84ac900800000000000000
+      internalID: 705456335939855770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_75
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 45
+        width: 22
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3af5230d6d07c2380800000000000000
+      internalID: -8994690287847448669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_76
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 36
+        width: 30
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8b5f57f087e48330800000000000000
+      internalID: 3712346533952183178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_77
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 72
+        width: 17
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a5bb5aa37d90f870800000000000000
+      internalID: 8714638399066846627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_78
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 80
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe99660f080af8470800000000000000
+      internalID: 8399108305718778351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_79
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 77
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6af8d43577c518ce0800000000000000
+      internalID: -1404739941194428506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_80
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 78
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67752eb8655102d40800000000000000
+      internalID: 5557465401633429366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_81
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 18
+        width: 13
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c79a0e3e34e34ebd0800000000000000
+      internalID: -2601886223406421636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_82
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 0
+        width: 45
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff9efe5c834fb1570800000000000000
+      internalID: 8438606851484936703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_83
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 69
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29d48697040440690800000000000000
+      internalID: -7636908422454555246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_84
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 58
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44eeaa7755a6816b0800000000000000
+      internalID: -5325389644053156284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_85
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 45
+        width: 10
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2900467ac3bc37e50800000000000000
+      internalID: 6806006923253776530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_86
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 51
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: beadc49db503186c0800000000000000
+      internalID: -4142977011158295829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_87
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 52
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a1a40c03251b5490800000000000000
+      internalID: -7756582692945878620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_88
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 41
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42a237463616f7bf0800000000000000
+      internalID: -324433568632460764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_89
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 28
+        width: 8
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 465b2d1d7645e73e0800000000000000
+      internalID: -2054111575155755676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_90
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 15
+        width: 49
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d136834efe42ba60800000000000000
+      internalID: 7688294367836385746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_91
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 0
+        width: 10
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fa5263c3a2cc8a20800000000000000
+      internalID: 3066039454945925873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_92
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 16
+        width: 23
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ad1ff54d20683660800000000000000
+      internalID: 7365742938128588196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_93
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35b4c86511ed221e0800000000000000
+      internalID: -2223971099919758509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_94
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 15
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae0efe68672869de0800000000000000
+      internalID: -1326729594632412950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_95
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 0
+        width: 32
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce32c534c0a2c6fd0800000000000000
+      internalID: -2347455073608784916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_96
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 0
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec346ef07c37914e0800000000000000
+      internalID: -2010448459841780786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_97
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 1
+        width: 6
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4609bc0d9d7abcff0800000000000000
+      internalID: -14733619812921244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_98
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 0
+        width: 24
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7153f472c0fd5260800000000000000
+      internalID: 7088086106527453562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_99
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 0
+        width: 32
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0964a7cfc54f99d0800000000000000
+      internalID: -2765414887472207603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_100
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 0
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 151b11e5c1a794060800000000000000
+      internalID: 6938210963196850513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_101
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 0
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f12f007e06622380800000000000000
+      internalID: -8997516893337214476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grietas_102
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 3
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad2cf659084308d80800000000000000
+      internalID: -8250536790475160870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      grietas_0: 3863830133488030261
+      grietas_1: -5374707449814371793
+      grietas_10: 8557233468477560684
+      grietas_100: 6938210963196850513
+      grietas_101: -8997516893337214476
+      grietas_102: -8250536790475160870
+      grietas_11: -3075583419340921591
+      grietas_12: 3582388163734788475
+      grietas_13: 2825779600931150185
+      grietas_14: 9180565889494837882
+      grietas_15: -4404386785682935443
+      grietas_16: 1880625710989163143
+      grietas_17: -172019791737336094
+      grietas_18: 6446103764587417361
+      grietas_19: -2690088736882666116
+      grietas_2: -6921435799426878705
+      grietas_20: -4661782439455428893
+      grietas_21: 3136830866774868026
+      grietas_22: -5785609598641735378
+      grietas_23: -1725518226541308589
+      grietas_24: 702512708067785607
+      grietas_25: -54163874949344365
+      grietas_26: -5078050068965995329
+      grietas_27: -8597103479455786249
+      grietas_28: -4556723577669118509
+      grietas_29: -2359982205594683249
+      grietas_3: -5360025272838182271
+      grietas_30: 7889265527707429367
+      grietas_31: -6016445748077826924
+      grietas_32: 6635408049362645833
+      grietas_33: 4268100105869476297
+      grietas_34: 4860883162809302048
+      grietas_35: -8358271807368339173
+      grietas_36: -5730591711537277153
+      grietas_37: -6114799434723364128
+      grietas_38: -8333621786132848575
+      grietas_39: -4153596925461737901
+      grietas_4: -7050742907280584825
+      grietas_40: 4651898420955930557
+      grietas_41: 1581570196893455291
+      grietas_42: 5139462873056457989
+      grietas_43: 6609295065852579746
+      grietas_44: 4879814523661814407
+      grietas_45: -6817195425630324897
+      grietas_46: -2923059413267510275
+      grietas_47: 1711657240277646787
+      grietas_48: 8323640760049195729
+      grietas_49: 3286536100197685693
+      grietas_5: -8161240465006836405
+      grietas_50: 7097009170204551074
+      grietas_51: -1313033041966638802
+      grietas_52: 8212196999163172958
+      grietas_53: 8249804317863330054
+      grietas_54: 1534218132553786548
+      grietas_55: 4185040231550761195
+      grietas_56: -7478860886641036071
+      grietas_57: 9165563520706303432
+      grietas_58: -5177981611974784321
+      grietas_59: 8027619367621331163
+      grietas_6: -6288308761017573591
+      grietas_60: 5396585302743685623
+      grietas_61: 3106481512845069815
+      grietas_62: -8668791190549146521
+      grietas_63: 4955303307523654276
+      grietas_64: 1095929964418979340
+      grietas_65: -5042127413169610027
+      grietas_66: -1058393212468569468
+      grietas_67: -375945670428571579
+      grietas_68: -8177958499242138120
+      grietas_69: 8582942247397353817
+      grietas_7: -2257850178826126522
+      grietas_70: -7837672101103712086
+      grietas_71: -6395977274755462668
+      grietas_72: 9106256590546634346
+      grietas_73: 3433198978569972686
+      grietas_74: 705456335939855770
+      grietas_75: -8994690287847448669
+      grietas_76: 3712346533952183178
+      grietas_77: 8714638399066846627
+      grietas_78: 8399108305718778351
+      grietas_79: -1404739941194428506
+      grietas_8: 1278627666521399466
+      grietas_80: 5557465401633429366
+      grietas_81: -2601886223406421636
+      grietas_82: 8438606851484936703
+      grietas_83: -7636908422454555246
+      grietas_84: -5325389644053156284
+      grietas_85: 6806006923253776530
+      grietas_86: -4142977011158295829
+      grietas_87: -7756582692945878620
+      grietas_88: -324433568632460764
+      grietas_89: -2054111575155755676
+      grietas_9: 5832567959640947850
+      grietas_90: 7688294367836385746
+      grietas_91: 3066039454945925873
+      grietas_92: 7365742938128588196
+      grietas_93: -2223971099919758509
+      grietas_94: -1326729594632412950
+      grietas_95: -2347455073608784916
+      grietas_96: -2010448459841780786
+      grietas_97: -14733619812921244
+      grietas_98: 7088086106527453562
+      grietas_99: -2765414887472207603
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

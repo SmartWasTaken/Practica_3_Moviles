@@ -5592,9 +5592,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ac0ac1f36e058fa4ebe3fdd6ab1233dd, type: 2}
   - {fileID: 11400000, guid: b602c09e26ee0ad478c5201ecc8f70e9, type: 2}
   - {fileID: 11400000, guid: 4e763db43e99f2d44a8430fed9512ca2, type: 2}
+  - {fileID: 11400000, guid: 96a8f9b66b125d0458998eeb75ff8904, type: 2}
+  - {fileID: 11400000, guid: 367cf191e40a782468ed7c26a8def540, type: 2}
+  - {fileID: 11400000, guid: 5eaa54f978b010f4d8a43c7d637394e2, type: 2}
+  - {fileID: 11400000, guid: 5e5963050dc13054088a30ed7ca89292, type: 2}
   _pityScore: 50
-  _debugLevel: {fileID: 11400000, guid: ce0803b2d504fac47a019b3b0f0d2b26, type: 2}
-  _debugDifficulty: 2
+  _debugLevel: {fileID: 11400000, guid: 5e5963050dc13054088a30ed7ca89292, type: 2}
+  _debugDifficulty: 0
 --- !u!1 &1544120590
 GameObject:
   m_ObjectHideFlags: 0
