@@ -29,7 +29,7 @@ MonoBehaviour:
     tutorialRequired: 6
     backgroundSprite: {fileID: 21300000, guid: b58949e4e9df6c146872d74c7a43ac9a, type: 3}
   - variationName: Tensar3
-    riddleText: The balloon likes the rythm of life
+    riddleText: You need to tighten the rope even more
     timeLimit: 8
     difficultyLevel: 2
     tutorialRequired: 6

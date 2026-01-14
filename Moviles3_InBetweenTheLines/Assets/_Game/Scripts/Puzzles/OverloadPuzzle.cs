@@ -18,11 +18,11 @@ namespace _Game.Scripts.Puzzles
         [SerializeField] private RectTransform _sliderArea;
 
         [Header("Configuración General")]
-        [SerializeField] private float _decaySpeed = 0.3f;
-        [SerializeField] private float _tapForce = 0.1f;
+        [SerializeField] private float _decaySpeed = 0.45f; // Velocidad a la que cae la aguja
+        [SerializeField] private float _tapForce = 0.15f;   // Cuánto salta la aguja con cada clic (15%)
 
         private float _progressValue = 0f;
-        private float _needleValue = 0f; 
+        private float _needleValue = 0.5f; // La aguja física
         
         private bool _isGreenLight = false;
         private float _trafficTimer = 0f;
@@ -35,51 +35,46 @@ namespace _Game.Scripts.Puzzles
             base.Initialize(manager, difficulty);
             
             _progressValue = 0f;
-            _needleValue = 0f;
             _mainSlider.value = 0f;
             _parentCanvas = GetComponentInChildren<Canvas>();
+
+            // Configuración inicial
+            if (difficulty == 1) 
+            {
+                _needleValue = 0.5f; // Empezamos en el medio para que el jugador reaccione
+            }
+            else
+            {
+                _needleValue = 0f;
+            }
 
             SetupVisuals();
         }
 
         public override void SetUIVisibility(bool isVisible)
         {
-            if (_parentCanvas != null)
-            {
-                _parentCanvas.enabled = isVisible;
-            }
-            else
-            {
-                foreach (Transform child in transform)
-                {
-                    child.gameObject.SetActive(isVisible);
-                }
-            }
+            if (_parentCanvas != null) _parentCanvas.enabled = isVisible;
+            else foreach (Transform child in transform) child.gameObject.SetActive(isVisible);
         }
 
         private void SetupVisuals()
         {
+            // Apagar todo primero
             if (_targetZone != null) _targetZone.gameObject.SetActive(false);
             if (_needleObject != null) _needleObject.gameObject.SetActive(false);
             if (_statusIcon != null) _statusIcon.gameObject.SetActive(false);
             if (_fillImage != null) _fillImage.color = Color.yellow;
 
+            // Encender lo necesario según dificultad
             switch (_currentDifficulty)
             {
-                case 0:
-                    break;
-
+                case 0: break; // Carrera no necesita extras
                 case 1:
                     if (_targetZone != null) _targetZone.gameObject.SetActive(true);
                     if (_needleObject != null) _needleObject.gameObject.SetActive(true);
                     break;
-
                 case 2:
-                    if (_statusIcon != null) 
-                    {
-                        _statusIcon.gameObject.SetActive(true);
-                        _statusIcon.color = Color.red;
-                    }
+                    if (_statusIcon != null) { _statusIcon.gameObject.SetActive(true); _statusIcon.color = Color.red; }
                     _isGreenLight = false;
                     _nextTrafficSwitch = Random.Range(1.0f, 2.0f);
                     break;
@@ -90,15 +85,16 @@ namespace _Game.Scripts.Puzzles
         {
             if (isSolved) return;
 
-            bool isTapping = Input.GetMouseButtonDown(0); 
+            // DETECCIÓN DE INPUT: SIEMPRE TAP (CLIC)
+            bool isTapping = Input.GetMouseButtonDown(0);
 
             switch (_currentDifficulty)
             {
-                case 0: // CARRERA
+                case 0: // CARRERA SIMPLE
                     HandleRaceLogic(isTapping);
                     break;
 
-                case 1: // MANTENER (Agujas)
+                case 1: // MANTENER EN ZONA (Flappy Bird style)
                     HandleMaintainLogic(isTapping);
                     break;
 
@@ -107,41 +103,53 @@ namespace _Game.Scripts.Puzzles
                     break;
             }
 
-            if (_mainSlider != null)
-            {
-                _mainSlider.value = _progressValue;
-            }
+            if (_mainSlider != null) _mainSlider.value = _progressValue;
         }
 
+        // --- LÓGICA CASO 0: CARRERA ---
         private void HandleRaceLogic(bool tap)
         {
-            if (tap) _progressValue += _tapForce;
-            _progressValue -= _decaySpeed * Time.deltaTime;
+            if (tap) _progressValue += 0.1f;
+            _progressValue -= 0.3f * Time.deltaTime;
             _progressValue = Mathf.Clamp01(_progressValue);
-
             if (_progressValue >= 0.99f) CompletePuzzle();
         }
 
+        // --- LÓGICA CASO 1: MANTENER EN ZONA ---
         private void HandleMaintainLogic(bool tap)
         {
-            if (tap) _needleValue += _tapForce * 2.0f;
-            _needleValue -= (_decaySpeed * 2.0f) * Time.deltaTime;
+            // 1. FÍSICA DE LA AGUJA (CONTROL)
+            if (tap)
+            {
+                Debug.Log("Estoy dentro");
+                _needleValue += _tapForce; // Salto seco hacia arriba
+            }
+            
+            // Gravedad constante
+            _needleValue -= _decaySpeed * Time.deltaTime;
             _needleValue = Mathf.Clamp01(_needleValue);
 
+            // Actualizar posición visual de la aguja (necesario para ver dónde estás)
             UpdateNeedlePosition(_needleValue);
-            float minZone = 0.4f;
-            float maxZone = 0.6f;
+
+            // 2. LÓGICA DE PROGRESO (ZONA VERDE)
+            float minZone = 0.3f;
+            float maxZone = 0.7f;
 
             if (_needleValue > minZone && _needleValue < maxZone)
             {
-                _progressValue += Time.deltaTime * 0.4f;
+                // DENTRO: La barra de progreso se llena
+                _progressValue += Time.deltaTime * 0.5f; 
                 if (_fillImage != null) _fillImage.color = Color.green;
             }
             else
             {
-                _progressValue -= Time.deltaTime * 0.05f; 
+                // FUERA: La barra de progreso baja
+                _progressValue -= Time.deltaTime * 0.25f; 
                 
-                if (_fillImage != null) _fillImage.color = (_needleValue > maxZone) ? Color.red : Color.gray;
+                // Feedback visual: Rojo si te pasas, Gris si te caes
+                if (_fillImage != null) 
+                    _fillImage.color = (_needleValue >= maxZone) ? Color.red : Color.gray;
             }
 
             _progressValue = Mathf.Clamp01(_progressValue);
@@ -149,6 +157,7 @@ namespace _Game.Scripts.Puzzles
             if (_progressValue >= 0.99f) CompletePuzzle();
         }
 
+        // --- LÓGICA CASO 2: SEMÁFORO ---
         private void HandleTrafficLogic(bool tap)
         {
             _trafficTimer += Time.deltaTime;
@@ -159,7 +168,6 @@ namespace _Game.Scripts.Puzzles
                 if (_isGreenLight) _progressValue += 0.20f;
                 else _progressValue -= 0.25f;
             }
-
             _progressValue = Mathf.Clamp01(_progressValue);
             if (_progressValue >= 0.99f) CompletePuzzle();
         }
@@ -176,7 +184,9 @@ namespace _Game.Scripts.Puzzles
         {
             if (_needleObject == null || _sliderArea == null) return;
             float width = _sliderArea.rect.width;
-            float xPos = Mathf.Lerp(-width/2, width/2, value); 
+            
+            // Mapeamos 0..1 a la posición X dentro del área
+            float xPos = Mathf.Lerp(-width/2f, width/2f, value); 
             _needleObject.anchoredPosition = new Vector2(xPos, _needleObject.anchoredPosition.y);
         }
     }

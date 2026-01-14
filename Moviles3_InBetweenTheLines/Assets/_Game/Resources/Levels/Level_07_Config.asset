@@ -26,7 +26,7 @@ MonoBehaviour:
     riddleText: Stay in the safe zone
     timeLimit: 10
     difficultyLevel: 1
-    tutorialRequired: 2
+    tutorialRequired: 1
     backgroundSprite: {fileID: 21300000, guid: b58949e4e9df6c146872d74c7a43ac9a, type: 3}
   - variationName: Dificil
     riddleText: If it's red, don't touch. If it's green, touch really fast.

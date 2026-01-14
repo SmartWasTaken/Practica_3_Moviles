@@ -3,33 +3,26 @@ using UnityEngine.UI;
 
 namespace _Game.Scripts.Core.Game
 {
-    // AÑADIDOS TODOS LOS TIPOS NECESARIOS PARA TUS NIVELES
     public enum TutorialType 
     { 
-        None, 
-        Tap,
-        Hold,
-        Shake,
-        Tilt,
-        Rotate,
-        Multitouch,
-        Rub,
-        MakeNoise,
-        Brightness
+        None, Tap, Hold, Shake, Tilt, Rotate, Multitouch, Rub, MakeNoise, Brightness 
     }
 
     public class TutorialManager : MonoBehaviour
     {
         public static TutorialManager Instance;
 
-        [Header("Paneles de Tutorial (Arrastra tus Prefabs)")]
+        [Header("Referencias Generales")]
+        [SerializeField] private Canvas _myCanvas;
+
+        [Header("Paneles de Tutorial")]
         [SerializeField] private GameObject _panelTap;
         [SerializeField] private GameObject _panelHold;
         [SerializeField] private GameObject _panelShake;
         [SerializeField] private GameObject _panelTilt;
         [SerializeField] private GameObject _panelRotate;
         [SerializeField] private GameObject _panelMultitouch;
-        [SerializeField] private GameObject _panelRub; 
+        [SerializeField] private GameObject _panelRub;
         [SerializeField] private GameObject _panelMakeNoise;
         [SerializeField] private GameObject _panelBrightness;
         
@@ -39,6 +32,14 @@ namespace _Game.Scripts.Core.Game
         private void Awake() 
         { 
             Instance = this; 
+            if (_myCanvas == null) _myCanvas = GetComponentInParent<Canvas>();
+            
+            if (_myCanvas != null)
+            {
+                _myCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+                _myCanvas.sortingOrder = 32000;
+            }
+
             HideAllPanels();
         }
 
@@ -56,8 +57,9 @@ namespace _Game.Scripts.Core.Game
 
         private void ShowPanel(TutorialType type)
         {
-            Time.timeScale = 0;
+            Time.timeScale = 0; 
             HideAllPanels();
+            if (_myCanvas != null) _myCanvas.gameObject.SetActive(true);
 
             switch (type)
             {
@@ -75,6 +77,7 @@ namespace _Game.Scripts.Core.Game
             if (_activePanel != null) 
             {
                 _activePanel.SetActive(true);
+                _activePanel.transform.SetAsLastSibling(); 
             }
             else
             {
@@ -97,10 +100,9 @@ namespace _Game.Scripts.Core.Game
                 _activePanel = null;
             }
 
-            Time.timeScale = 1;
+            Time.timeScale = 1; 
             _onTutorialComplete?.Invoke();
         }
-
         private void HideAllPanels()
         {
             if (_panelTap) _panelTap.SetActive(false);
@@ -127,7 +129,7 @@ namespace _Game.Scripts.Core.Game
             if (panel == _panelBrightness) return TutorialType.Brightness;
             return TutorialType.None;
         }
-        
+
         [ContextMenu("Reset Tutorials")]
         public void ResetTutorialPrefs()
         {
