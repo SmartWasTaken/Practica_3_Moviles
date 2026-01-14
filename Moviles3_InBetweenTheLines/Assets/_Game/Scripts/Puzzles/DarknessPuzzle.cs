@@ -43,54 +43,43 @@ namespace _Game.Scripts.Puzzles
 
             switch (_currentDifficulty)
             {
-                case 0: // BRILLO DE PANTALLA
+                case 0:
                     CheckBrightness();
                     break;
-                case 1: // DINAMO (AGITAR)
+                case 1:
                     CheckShake();
                     break;
-                case 2: // FRICCIÓN (FROTAR PANTALLA)
+                case 2:
                     CheckRubbing();
                     break;
             }
         }
-
-        // --- VARIANTE 0: BRILLO ---
         private void CheckBrightness()
         {
             float brightness = GetCurrentBrightness();
-
-            // Si el brillo pasa del 80%, ganamos
             if (brightness > 0.8f)
             {
                 WinLevel();
             }
         }
 
-        // --- VARIANTE 1: AGITAR (DINAMO) ---
         private void CheckShake()
         {
             Vector3 acceleration = Input.acceleration;
             
             #if UNITY_EDITOR
-            // Simulación con Tecla Espacio
             if (Input.GetKeyDown(KeyCode.Space)) acceleration = new Vector3(3, 3, 3);
             #endif
-
-            // Si la sacudida es fuerte
             if (acceleration.sqrMagnitude >= _shakeThreshold * _shakeThreshold)
             {
-                _currentEnergy += Time.deltaTime * 5f; // Cargamos energía
+                _currentEnergy += Time.deltaTime * 5f;
             }
             else
             {
-                // Si paras, la energía baja lentamente (opcional, para dar tensión)
                 _currentEnergy -= Time.deltaTime * 0.5f;
             }
 
             _currentEnergy = Mathf.Clamp(_currentEnergy, 0, _shakeEnergyNeeded);
-            
-            // Feedback Visual: Aclarar el negro según la energía acumulada
             UpdateDarknessAlpha(1f - (_currentEnergy / _shakeEnergyNeeded));
 
             if (_currentEnergy >= _shakeEnergyNeeded)
@@ -99,13 +88,11 @@ namespace _Game.Scripts.Puzzles
             }
         }
 
-        // --- VARIANTE 2: FROTAR (FRICCIÓN) ---
         private void CheckRubbing()
         {
             float rubDelta = 0f;
 
             #if UNITY_EDITOR
-                // Simular frotar con movimiento del ratón manteniendo clic
                 if (Input.GetMouseButton(0))
                 {
                     rubDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")).magnitude * 10f;
@@ -128,8 +115,7 @@ namespace _Game.Scripts.Puzzles
             {
                 _currentEnergy += rubDelta * _rubSensitivity;
             }
-
-            // Feedback Visual: Aclarar el negro mientras frotas
+            
             UpdateDarknessAlpha(1f - (_currentEnergy / _rubEnergyNeeded));
 
             if (_currentEnergy >= _rubEnergyNeeded)
@@ -140,7 +126,6 @@ namespace _Game.Scripts.Puzzles
 
         private void WinLevel()
         {
-            // Apagamos el panel negro del todo
             if (_darknessPanel != null) _darknessPanel.gameObject.SetActive(false);
             CompletePuzzle();
         }
@@ -155,7 +140,6 @@ namespace _Game.Scripts.Puzzles
             }
         }
 
-        // --- HELPERS ---
         private float GetCurrentBrightness()
         {
             #if UNITY_EDITOR

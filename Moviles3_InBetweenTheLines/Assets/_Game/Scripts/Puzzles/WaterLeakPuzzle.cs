@@ -82,78 +82,80 @@ namespace _Game.Scripts.Puzzles
         private void Update()
         {
             if (isSolved) return;
-
-            // 1. INPUT: Detectar qué fugas están tapadas
-            ResetPlugStatus(); // Asumimos que no están tapadas hasta que detectemos dedo
+            
+            ResetPlugStatus();
             HandleInput();
-
-            // 2. LÓGICA POR VARIANTE
             ApplyMechanics();
-
-            // 3. FEEDBACK VISUAL (Partículas)
             UpdateParticles();
-
-            // 4. CONDICIÓN DE VICTORIA
             CheckProgress();
         }
 
-        // --- SISTEMA DE INPUT ---
+        public override void SetUIVisibility(bool isVisible)
+        {
+            if (_containerRenderer != null) _containerRenderer.gameObject.SetActive(isVisible);
+            if (_leaks != null)
+            {
+                foreach (var leak in _leaks)
+                {
+                    if (leak != null) leak.gameObject.SetActive(isVisible);
+                }
+            }
+            if (!isVisible && _jets != null)
+            {
+                foreach (var jet in _jets)
+                {
+                    if (jet != null) jet.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                }
+            }
+        }
+        
         private void ResetPlugStatus()
         {
             for (int i = 0; i < _leaks.Length; i++)
             {
-                // En móvil reseteamos siempre. 
-                // En PC mantenemos el estado si usamos el modo "Sticky Click"
                 #if !UNITY_EDITOR
                 _isPlugged[i] = false; 
                 #else
-                _isPlugged[i] = _pcHeldLeaks[i]; // En PC recordamos lo que clicamos
+                _isPlugged[i] = _pcHeldLeaks[i];
                 #endif
             }
         }
 
         private void HandleInput()
         {
-            // MÓVIL (Multitouch Real)
             if (Input.touchCount > 0)
             {
                 foreach (Touch t in Input.touches)
                 {
-                    // Convertimos posición de pantalla a Rayo
                     Ray ray = _cam.ScreenPointToRay(t.position);
-                    CheckRaycast(ray, true); // true = es dedo real
+                    CheckRaycast(ray, true);
                 }
             }
-            // PC (Simulación con Clic)
             else if (Input.GetMouseButtonDown(0))
             {
                 Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
-                CheckRaycast(ray, false); // false = es clic de ratón (toggle)
+                CheckRaycast(ray, false);
             }
         }
 
         private void CheckRaycast(Ray ray, bool isTouch)
         {
             RaycastHit hit;
-            // Usamos un LayerMask o simplemente comprobamos distancia contra todos los leaks
-            // Para simplificar, comprobamos distancia matemática rayo-punto (SphereCast virtual)
             
             if (Physics.Raycast(ray, out hit))
             {
-                // Buscamos qué leak hemos tocado
                 for (int i = 0; i < _leaks.Length; i++)
                 {
-                    if (!_isActive[i]) continue; // Si no está activa, no se puede tapar
+                    if (!_isActive[i]) continue;
 
                     if (hit.transform == _leaks[i])
                     {
                         if (isTouch)
                         {
-                            _isPlugged[i] = true; // Dedo puesto
+                            _isPlugged[i] = true;
                         }
                         else
                         {
-                            // En PC: Toggle (Si estaba tapada se destapa, y viceversa)
                             _pcHeldLeaks[i] = !_pcHeldLeaks[i];
                             _isPlugged[i] = _pcHeldLeaks[i];
                         }
@@ -162,47 +164,33 @@ namespace _Game.Scripts.Puzzles
             }
         }
 
-        // --- MECÁNICAS DE JUEGO ---
         private void ApplyMechanics()
         {
             float dt = Time.deltaTime;
-
-            // VARIANTE 2: MOVIMIENTO
             if (_currentDifficulty == 1)
             {
                 for (int i = 0; i < _leaks.Length; i++)
                 {
                     if (!_isActive[i]) continue;
-
-                    // "Cuando se tapa una fuga, esta se deja de mover"
                     if (!_isPlugged[i]) 
                     {
-                        // Movimiento "Mágico" (Senoidal alrededor del punto inicial)
-                        // Usamos offsets diferentes para cada fuga (i * 10) para que no se muevan igual
                         float offsetX = Mathf.Sin(Time.time * _moveSpeed + (i * 10)) * _moveRange;
                         float offsetY = Mathf.Cos(Time.time * _moveSpeed * 0.8f + (i * 10)) * _moveRange;
-
-                        // Mantenemos la Z y rotación, solo movemos en local X/Y
                         _leaks[i].localPosition = _initialPositions[i] + new Vector3(offsetX, offsetY, 0);
                     }
                 }
             }
 
-            // VARIANTE 3: INTERMITENCIA
             else if (_currentDifficulty == 2)
             {
                 _intermittentTimer -= dt;
                 if (_intermittentTimer <= 0)
                 {
                     _intermittentTimer = _toggleInterval;
-                    
-                    // Elegir una fuga aleatoria para cambiar su estado
                     int randomIndex = Random.Range(0, _leaks.Length);
                     bool newState = !_isActive[randomIndex];
                     
                     ActivateLeak(randomIndex, newState);
-
-                    // Si desactivamos una fuga que estaba "retenida" en PC, la soltamos
                     if (!newState) _pcHeldLeaks[randomIndex] = false;
                 }
             }
@@ -212,8 +200,6 @@ namespace _Game.Scripts.Puzzles
         {
             _isActive[index] = active;
             _leaks[index].gameObject.SetActive(active);
-            
-            // Si se desactiva, cortamos el chorro inmediatamente
             if (!active) 
             {
                 var em = _jets[index].emission;
@@ -228,16 +214,12 @@ namespace _Game.Scripts.Puzzles
                 if (!_isActive[i]) continue;
 
                 var emission = _jets[i].emission;
-                
-                // Si está tapada (_isPlugged), cortamos el agua
-                // Si NO está tapada, sale agua
                 emission.enabled = !_isPlugged[i];
             }
         }
 
         private void CheckProgress()
         {
-            // Contamos cuántas fugas activas hay y cuántas están tapadas
             int activeCount = 0;
             int pluggedCount = 0;
 
@@ -249,15 +231,9 @@ namespace _Game.Scripts.Puzzles
                     if (_isPlugged[i]) pluggedCount++;
                 }
             }
-
-            // REGLAS DE VICTORIA
-            
-            // Si todas las fugas activas están tapadas
             if (activeCount > 0 && pluggedCount == activeCount)
             {
                 _currentWinTimer += Time.deltaTime;
-                
-                // Feedback visual (Opcional): Contenedor se pone verde
                 if (_containerRenderer) _containerRenderer.material.color = Color.Lerp(Color.white, Color.green, _currentWinTimer / _winHoldTime);
 
                 if (_currentWinTimer >= _winHoldTime)
@@ -267,11 +243,6 @@ namespace _Game.Scripts.Puzzles
             }
             else
             {
-                // Si falla alguna fuga
-                // Variante 1: "Si se quita algún dedo, el agua se derrama... y falla" (o reinicia)
-                // Variante 2: "El contador retrocede"
-                
-                // Vamos a hacer que retroceda rápido en lugar de fallar instantáneo (más amigable)
                 _currentWinTimer -= Time.deltaTime * 2.0f; 
                 if (_currentWinTimer < 0) _currentWinTimer = 0;
                 

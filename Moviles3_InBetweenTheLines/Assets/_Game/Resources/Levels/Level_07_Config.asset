@@ -20,17 +20,17 @@ MonoBehaviour:
     riddleText: Don't let the slider get to 0
     timeLimit: 15
     difficultyLevel: 0
-    tutorialRequired: 0
+    tutorialRequired: 1
     backgroundSprite: {fileID: 21300000, guid: 96dfb25a5ddbb2440ac90a146e76e0e2, type: 3}
   - variationName: Medio
     riddleText: Stay in the safe zone
     timeLimit: 10
     difficultyLevel: 1
-    tutorialRequired: 0
+    tutorialRequired: 2
     backgroundSprite: {fileID: 21300000, guid: b58949e4e9df6c146872d74c7a43ac9a, type: 3}
   - variationName: Dificil
     riddleText: If it's red, don't touch. If it's green, touch really fast.
     timeLimit: 8
     difficultyLevel: 2
-    tutorialRequired: 0
+    tutorialRequired: 1
     backgroundSprite: {fileID: 21300000, guid: fdefb34e4b998b4448ba5a0ca7ae25a8, type: 3}

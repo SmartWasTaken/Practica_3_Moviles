@@ -12,119 +12,106 @@ namespace _Game.Scripts.Puzzles
         [SerializeField] private float _viscousMultiplier = 0.1f;
         [SerializeField] private float _shakeThreshold = 2.0f;
         
-        [Header("Configuración Input")]
-        [SerializeField] private float _shakeMemoryDuration = 0.5f;
-
         [Header("Referencias Visuales")]
         [SerializeField] private Transform _bottleVisualTransform; 
         [SerializeField] private Renderer _liquidRenderer;
         [SerializeField] private ParticleSystem _pouringParticleSystem; 
-        [SerializeField] private float _visualSmoothSpeed = 10f; 
-
-        [Header("Referencias Puntos Líquido")]
-        [SerializeField] private Transform _pointBase; 
-        [SerializeField] private Transform _pointTapon;
         
-        [Header("Configuración Wobble")]
-        [SerializeField] private float _maxWobble = 0.03f;
-        [SerializeField] private float _wobbleRecovery = 1f;
+        [Header("Ajuste Líquido")]
+        [Tooltip("Si el líquido sale cortado o no llega al fondo, ajusta esto manualmente. Si es 0, se calcula solo.")]
+        [SerializeField] private float _manualBottleHeight = 0f; 
+        [SerializeField] private float _fillOffset = 0f; // Para subir/bajar todo el líquido un poco
+        [SerializeField] private float _maxWobble = 0.1f;
 
-        [Header("Debug / Testing")]
-        [SerializeField] private float _currentFillAmount = 1.0f;
-        [SerializeField] private float _currentFlowRate = 0f;
-        
-        private Quaternion _initialVisualRotation;
-        private float _simulatedTiltAngle = 0f; 
+        // Estado Interno
+        private float _bottleHeight; // Calculado automáticamente
+        private float _currentFillAmount = 1.0f;
+        private float _currentFlowRate = 0f;
         private float _shakeTimer = 0f;
-
-        private float _wobbleAmountX;
-        private float _wobbleAmountZ;
-        private float _wobbleAddX;
-        private float _wobbleAddZ;
-        private float _timeWobble;
+        
+        // Wobble
+        private float _wobbleVelocity = 0f;
+        private float _currentWobble = 0f;
+        private float _simulatedTiltX = 0f;
 
         public override void Initialize(LevelManager manager, int difficulty)
         {
             base.Initialize(manager, difficulty);
             _currentFillAmount = 1.0f;
+            _simulatedTiltX = 0f;
             
-            if (_bottleVisualTransform != null)
+            // --- AUTO-CALIBRACIÓN DE ALTURA ---
+            if (_manualBottleHeight > 0)
             {
-                _initialVisualRotation = _bottleVisualTransform.localRotation;
+                _bottleHeight = _manualBottleHeight;
             }
-            _simulatedTiltAngle = 0f;
-            _wobbleAddX = 0;
-            _wobbleAddZ = 0;
+            else if (_liquidRenderer != null)
+            {
+                // Medimos la altura real del mesh del líquido
+                _bottleHeight = _liquidRenderer.bounds.size.y;
+                // Pequeño margen de seguridad para que cubra bien los bordes
+                _bottleHeight *= 0.95f; 
+            }
+            else
+            {
+                _bottleHeight = 2.0f; // Valor por defecto si falla todo
+            }
 
-            if (_pouringParticleSystem != null && _pouringParticleSystem.isPlaying)
-            {
-                _pouringParticleSystem.Stop();
-            }
+            // Aseguramos que las partículas empiecen apagadas
+            if (_pouringParticleSystem != null) _pouringParticleSystem.Stop();
+        }
+
+        public override void SetUIVisibility(bool isVisible)
+        {
+            if (_bottleVisualTransform != null) _bottleVisualTransform.gameObject.SetActive(isVisible);
+            if (!isVisible && _pouringParticleSystem != null)
+                _pouringParticleSystem.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         }
 
         private void Update()
         {
             if (isSolved) return;
-            HandleInputAndLogic();
-            UpdateVisuals();
-            UpdateLiquidVisuals();
+            
+            HandlePhysicsAndInput();
+            UpdateLiquidShader();
             UpdatePouringEffects();
         }
 
-        private void HandleInputAndLogic()
+        private void HandlePhysicsAndInput()
         {
-            Vector3 accel = GetCurrentAcceleration();
-            bool rawShakeInput = GetCurrentShaking();
+            Vector3 gravityDir = GetGravityDirection();
+            
+            // LÓGICA DE VERTIDO (POURING)
+            // Si gravityDir.y es positivo, el móvil está boca abajo (tapón al suelo).
+            // Bajamos el umbral a 0.1 para que empiece a caer antes.
+            bool isPouringPosition = gravityDir.y > 0.1f; 
 
-            if (rawShakeInput)
-            {
-                _shakeTimer = _shakeMemoryDuration;
-            }
+            // Shake
+            bool isShaking = IsShaking();
+            if (isShaking) _shakeTimer = 0.5f;
             _shakeTimer -= Time.deltaTime;
 
-            bool isEffectiveShaking = _shakeTimer > 0;
-            bool isPouringPosition = accel.y > -0.2f; 
-
-            if (!isPouringPosition) 
+            if (!isPouringPosition)
             {
                 _currentFlowRate = 0;
-                return;
             }
-
-            float flowRate = 0f;
-            switch (_currentDifficulty)
+            else
             {
-                case 0: // Fácil
-                    flowRate = _pourSpeed; 
-                    break;
-            
-                case 1: // Viscoso
-                    if (isEffectiveShaking) 
-                    {
-                        flowRate = _pourSpeed;
-                    }
-                    else 
-                    {
-                        flowRate = _pourSpeed * _viscousMultiplier;
-                    }
-                    break;
-            
-                case 2: // Atasco
-                    if (_currentFillAmount > 0.5f) 
-                    {
-                        flowRate = _pourSpeed;
-                    }
-                    else 
-                    {
-                        if (isEffectiveShaking) flowRate = _pourSpeed;
-                        else flowRate = 0;
-                    }
-                    break;
+                float baseSpeed = _pourSpeed;
+                switch (_currentDifficulty)
+                {
+                    case 0: _currentFlowRate = baseSpeed; break;
+                    case 1: _currentFlowRate = (_shakeTimer > 0) ? baseSpeed : baseSpeed * _viscousMultiplier; break;
+                    case 2: 
+                        if (_currentFillAmount > 0.5f) _currentFlowRate = baseSpeed;
+                        else _currentFlowRate = (_shakeTimer > 0) ? baseSpeed : 0f;
+                        break;
+                }
             }
 
-            _currentFlowRate = flowRate;
-            _currentFillAmount -= flowRate * Time.deltaTime;
-
+            _currentFillAmount -= _currentFlowRate * Time.deltaTime;
+            
+            // Evitamos números negativos
             if (_currentFillAmount <= 0)
             {
                 _currentFillAmount = 0;
@@ -132,125 +119,82 @@ namespace _Game.Scripts.Puzzles
             }
         }
 
-        private void UpdateVisuals()
+        private void UpdateLiquidShader()
         {
-           // ... (Este método NO cambia) ...
-            if (_bottleVisualTransform == null) return;
+            if (_liquidRenderer == null) return;
 
-            Quaternion targetRotation;
-            #if UNITY_EDITOR
-            {
-                Quaternion simulatedTilt = Quaternion.Euler(0, _simulatedTiltAngle, 0);
-                targetRotation = _initialVisualRotation * simulatedTilt;
-            }
-            #else
-            {
-                Vector3 accel = InputManager.Instance.Acceleration;
-                float rollAngle = Mathf.Atan2(accel.x, -accel.y) * Mathf.Rad2Deg;
-                Quaternion gravityTilt = Quaternion.Euler(0, rollAngle, 0);
-                targetRotation = _initialVisualRotation * gravityTilt;
-            }
-            #endif
-            _bottleVisualTransform.localRotation = Quaternion.Slerp(_bottleVisualTransform.localRotation, targetRotation, Time.deltaTime * _visualSmoothSpeed);
+            Vector3 gravity = GetGravityDirection();
+            // Normal invertida a la gravedad
+            Vector3 surfaceNormal = -gravity.normalized;
+            
+            // Mapeo de 0..1 a altura física real
+            // Usamos el _bottleHeight calculado automáticamente
+            float halfHeight = _bottleHeight * 0.5f;
+            float physicalLevel = Mathf.Lerp(-halfHeight, halfHeight, _currentFillAmount);
+            
+            physicalLevel += _fillOffset; // Ajuste manual fino por si acaso
+
+            // Wobble
+            float wobbleTarget = (gravity.x * 5f);
+            _wobbleVelocity += (wobbleTarget - _currentWobble) * Time.deltaTime * 10f;
+            _wobbleVelocity *= 0.9f;
+            _currentWobble += _wobbleVelocity * Time.deltaTime;
+
+            _liquidRenderer.material.SetVector("_FillNormal", surfaceNormal);
+            _liquidRenderer.material.SetFloat("_FillAmount", physicalLevel);
+            // IMPORTANTE: El shader necesita saber el centro del objeto para calcular la altura
+            _liquidRenderer.material.SetVector("_Center", _liquidRenderer.transform.position); 
+            _liquidRenderer.material.SetFloat("_WobbleX", Mathf.Clamp(_currentWobble * 0.1f, -0.2f, 0.2f));
         }
 
-        private void UpdateLiquidVisuals()
-        {
-             // ... (Este método NO cambia, usa la versión de los puntos que te pasé antes) ...
-            if (_liquidRenderer == null || _pointBase == null || _pointTapon == null) return;
-
-            float y1 = _pointBase.position.y;
-            float y2 = _pointTapon.position.y;
-            float lowestY = Mathf.Min(y1, y2);
-            float highestY = Mathf.Max(y1, y2);
-            float currentWaterLevelY = Mathf.Lerp(lowestY, highestY, _currentFillAmount);
-
-            _liquidRenderer.material.SetFloat("_FillAmount", currentWaterLevelY);
-
-            // WOBBLE
-            float deltaTime = Time.deltaTime;
-            float wobbleInput = 0f;
-            #if UNITY_EDITOR
-                if (Input.GetKey(KeyCode.D)) wobbleInput = 1f; 
-                else if (Input.GetKey(KeyCode.A)) wobbleInput = -1f;
-            #else
-                wobbleInput = InputManager.Instance.Acceleration.x * 5f; 
-            #endif
-
-            _wobbleAddX = Mathf.Lerp(_wobbleAddX, 0, deltaTime * _wobbleRecovery);
-            _wobbleAddZ = Mathf.Lerp(_wobbleAddZ, 0, deltaTime * _wobbleRecovery);
-            _timeWobble += deltaTime;
-            float pulse = 2 * Mathf.PI * 1.0f; 
-
-            if (Mathf.Abs(wobbleInput) > 0.1f)
-            {
-                _wobbleAddZ += wobbleInput * 0.01f; 
-                _wobbleAddZ = Mathf.Clamp(_wobbleAddZ, -_maxWobble, _maxWobble);
-            }
-
-            _wobbleAmountX = _wobbleAddX * Mathf.Sin(pulse * _timeWobble);
-            _wobbleAmountZ = _wobbleAddZ * Mathf.Sin(pulse * _timeWobble);
-
-            _liquidRenderer.material.SetFloat("_WobbleX", _wobbleAmountX);
-            _liquidRenderer.material.SetFloat("_WobbleZ", _wobbleAmountZ);
-        }
-
-        // --- NUEVO MÉTODO: CONTROL DE PARTÍCULAS ---
         private void UpdatePouringEffects()
         {
             if (_pouringParticleSystem == null) return;
 
-            // ¿Se está vertiendo líquido Y queda líquido en la botella?
-            bool isPouring = _currentFlowRate > 0 && _currentFillAmount > 0;
-
-            if (isPouring)
+            // Solo sale agua si estamos vertiendo Y queda agua
+            if (_currentFlowRate > 0 && _currentFillAmount > 0)
             {
-                // Si debería estar vertiendo y está apagado, enciéndelo
-                if (!_pouringParticleSystem.isPlaying)
-                {
-                    _pouringParticleSystem.Play();
-                }
-
-                // OPCIONAL (Nivel PRO): Modificar la cantidad de partículas según el flujo.
-                // Si cae poco (viscoso), salen pocas partículas. Si cae mucho, salen muchas.
-                var emissionModule = _pouringParticleSystem.emission;
-                // Mapeamos el flujo (ej. 0.1 a 0.5) a una cantidad de partículas (ej. 10 a 50 por segundo)
-                emissionModule.rateOverTime = _currentFlowRate * 100f; 
+                if (!_pouringParticleSystem.isPlaying) _pouringParticleSystem.Play();
+                var em = _pouringParticleSystem.emission;
+                em.rateOverTime = _currentFlowRate * 50f;
             }
             else
             {
-                // Si NO debería estar vertiendo y está encendido, apágalo
-                // Usamos Stop con false para que las partículas que ya han salido terminen de caer de forma natural
-                if (_pouringParticleSystem.isPlaying)
-                {
-                    _pouringParticleSystem.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-                }
+                if (_pouringParticleSystem.isPlaying) _pouringParticleSystem.Stop();
             }
         }
-        // --------------------------------------------
 
-        // ... (Helpers GetCurrentAcceleration y GetCurrentShaking NO cambian) ...
-         private Vector3 GetCurrentAcceleration()
+        private Vector3 GetGravityDirection()
         {
             #if UNITY_EDITOR
-                float tiltSpeed = 150f * Time.deltaTime;
-                if (Input.GetKey(KeyCode.D)) _simulatedTiltAngle += tiltSpeed;
-                if (Input.GetKey(KeyCode.A)) _simulatedTiltAngle -= tiltSpeed;
-                _simulatedTiltAngle = Mathf.Clamp(_simulatedTiltAngle, -180f, 180f);
+            // Control PC: A/D para inclinar lateralmente, W/S para volcar (Pouring)
+            if (Input.GetKey(KeyCode.A)) _simulatedTiltX += Time.deltaTime * 2f;
+            if (Input.GetKey(KeyCode.D)) _simulatedTiltX -= Time.deltaTime * 2f;
+            
+            // Simular volcado (W = Poner boca abajo)
+            float tiltForward = Input.GetKey(KeyCode.W) ? 1.0f : 0f; 
 
-                float rad = _simulatedTiltAngle * Mathf.Deg2Rad;
-                return new Vector3(Mathf.Sin(rad), -Mathf.Cos(rad), 0);
+            // Retorno suave
+            if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D)) 
+                _simulatedTiltX = Mathf.Lerp(_simulatedTiltX, 0, Time.deltaTime * 5f);
+                
+            _simulatedTiltX = Mathf.Clamp(_simulatedTiltX, -1.5f, 1.5f);
+            
+            // Si pulsamos W, simulamos gravedad positiva en Y (boca abajo)
+            if (tiltForward > 0.5f) return new Vector3(0, 1, 0);
+
+            return new Vector3(Mathf.Sin(_simulatedTiltX), -Mathf.Cos(_simulatedTiltX), 0);
             #else
-                return InputManager.Instance.Acceleration;
+            return Input.acceleration;
             #endif
         }
 
-        private bool GetCurrentShaking()
+        private bool IsShaking()
         {
             #if UNITY_EDITOR
-                return Input.GetKeyDown(KeyCode.Space);
+            return Input.GetKeyDown(KeyCode.Space);
             #else
-                return InputManager.Instance.IsShaking(_shakeThreshold);
+            return Input.acceleration.sqrMagnitude > (_shakeThreshold * _shakeThreshold);
             #endif
         }
     }

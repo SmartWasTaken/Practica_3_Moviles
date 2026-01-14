@@ -15,6 +15,8 @@ namespace _Game.Scripts.Puzzles
         [Header("Configuración")]
         [SerializeField] private float _sensitivity = 2.0f;
 
+        [SerializeField] private float speed = 1.0f;
+
         private float _currentHeading = 0f;
         private float _targetHeading = 0f;
         
@@ -112,7 +114,6 @@ namespace _Game.Scripts.Puzzles
                 _satelliteTime += Time.deltaTime;
                 float center = 180f; 
                 float amplitude = 60f;
-                float speed = 1.0f;
                 
                 _targetHeading = center + Mathf.Sin(_satelliteTime * speed) * amplitude;
             }

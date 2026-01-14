@@ -187,19 +187,22 @@ namespace _Game.Scripts.Puzzles
         private void CheckWinCondition()
         {
             float currentPerimeter = CalculateCurrentPerimeter();
-            
-            // 1. ROTURA (Si estiramos demasiado respecto al inicio)
             if (currentPerimeter > (_initialPerimeter + _maxStretchLimit))
             {
                 BreakElastic();
                 return;
             }
+            bool hasEnoughFingers = false;
+#if UNITY_EDITOR
+            hasEnoughFingers = true;
+#else
+        hasEnoughFingers = _activeTouches.Count >= 2;
+#endif
 
-            // 2. VICTORIA (Si superamos el umbral relativo)
-            // La condición es: Tamaño Actual > (Tamaño Inicial + Lo que pidas en inspector)
-            if (currentPerimeter >= (_initialPerimeter + _stretchNeeded))
+            if (currentPerimeter >= (_initialPerimeter + _stretchNeeded) && hasEnoughFingers)
             {
                 _holdTimer += Time.deltaTime;
+        
                 if (_holdTimer >= _targetHoldTime)
                 {
                     CompletePuzzle();
@@ -215,20 +218,17 @@ namespace _Game.Scripts.Puzzles
         {
             _isBroken = true;
             _elasticLine.enabled = false;
-            // Aquí tu lógica de fallo
+            FailPuzzle();
         }
-
-        // --- HELPERS ---
 
         private float CalculateCurrentPerimeter()
         {
             float dist = 0f;
-            // Solo calculamos distancia entre los activos
-            if (_currentDifficulty == 0) // Línea (A -> B)
+            if (_currentDifficulty == 0)
             {
                 dist = Vector3.Distance(_anchors[0].position, _anchors[1].position);
             }
-            else // Triángulo (A->B->C->A)
+            else
             {
                 dist += Vector3.Distance(_anchors[0].position, _anchors[1].position);
                 dist += Vector3.Distance(_anchors[1].position, _anchors[2].position);
@@ -255,6 +255,15 @@ namespace _Game.Scripts.Puzzles
             return best;
         }
 
+        public override void SetUIVisibility(bool isVisible)
+        {
+            if (_elasticLine != null) _elasticLine.enabled = isVisible;
+            foreach (var anchor in _anchors)
+            {
+                if (anchor != null) anchor.gameObject.SetActive(isVisible);
+            }
+        }
+        
         private bool IsAnchorTouched(Transform anchor)
         {
             if (_pcSelectedAnchor == anchor) return true;

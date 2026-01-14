@@ -14,21 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_Game.Scripts.Data.LevelConfig
   levelID: 4
   LvlName: Fugas de agua
-  backgroundColor: {r: 0.4067732, g: 1, b: 0, a: 1}
   puzzlePrefab: {fileID: 6031678231018183411, guid: 38f040ec67c9c5c4c84fb5e1146f8c9f, type: 3}
   variations:
   - variationName: Fuga1
     riddleText: You can't lose any more water
     timeLimit: 15
     difficultyLevel: 0
-    tutorialRequired: 0
+    tutorialRequired: 6
+    backgroundSprite: {fileID: 21300000, guid: 6ee80a0a317f4c946908bb15a34644fd, type: 3}
   - variationName: Fuga2
     riddleText: This is the last supply of water
     timeLimit: 10
     difficultyLevel: 1
-    tutorialRequired: 0
+    tutorialRequired: 6
+    backgroundSprite: {fileID: 21300000, guid: 4c2f57ca9f8aaed49a29dd9990b60ca4, type: 3}
   - variationName: Fuga3
     riddleText: Don't let the water run out
     timeLimit: 8
     difficultyLevel: 2
-    tutorialRequired: 0
+    tutorialRequired: 6
+    backgroundSprite: {fileID: 21300000, guid: b83241c53fe259e49a0f91ee80bb1ba5, type: 3}

@@ -20,17 +20,17 @@ MonoBehaviour:
     riddleText: You need to pull back, you caught a fish!
     timeLimit: 15
     difficultyLevel: 0
-    tutorialRequired: 0
+    tutorialRequired: 3
     backgroundSprite: {fileID: 21300000, guid: 96dfb25a5ddbb2440ac90a146e76e0e2, type: 3}
   - variationName: Medio
     riddleText: The rod can break, but you need to pull back. Careful!
     timeLimit: 10
     difficultyLevel: 1
-    tutorialRequired: 0
+    tutorialRequired: 3
     backgroundSprite: {fileID: 21300000, guid: b58949e4e9df6c146872d74c7a43ac9a, type: 3}
   - variationName: Dificil
     riddleText: You need to pull the fish, but careful, it's really big!
     timeLimit: 8
     difficultyLevel: 2
-    tutorialRequired: 0
+    tutorialRequired: 3
     backgroundSprite: {fileID: 21300000, guid: fdefb34e4b998b4448ba5a0ca7ae25a8, type: 3}

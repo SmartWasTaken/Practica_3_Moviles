@@ -39,20 +39,14 @@ namespace _Game.Scripts.Puzzles
         public override void Initialize(LevelManager manager, int difficulty)
         {
             base.Initialize(manager, difficulty);
-            
-            // Inicializar Micrófono
             InitMicrophone();
 
-            // Configuración inicial
-            _currentScale = 0.2f; // Tamaño desinflado
+            _currentScale = 0.2f;
             _holdTimer = 0f;
             _hasExploded = false;
 
-            // Configurar visual del objetivo
             if (_targetVisualTransform != null)
                 _targetVisualTransform.localScale = Vector3.one * _targetScale;
-
-            // Ocultar indicador de ritmo si no es dificultad 2
             if (_rhythmIndicator != null)
                 _rhythmIndicator.SetActive(difficulty == 2);
         }
@@ -61,20 +55,17 @@ namespace _Game.Scripts.Puzzles
         {
             if (isSolved || _hasExploded) return;
 
-            // 1. Detectar intensidad del soplido (0.0 a 1.0)
             float blowIntensity = GetBlowIntensity();
-
-            // 2. Lógica según dificultad
             switch (_currentDifficulty)
             {
-                case 0: // ESTABLE (Solo infla)
+                case 0:
                     if (blowIntensity > _blowThreshold)
                     {
                         Inflate(blowIntensity * Time.deltaTime);
                     }
                     break;
 
-                case 1: // FUGA (Infla y se desinfla solo)
+                case 1:
                     if (blowIntensity > _blowThreshold)
                     {
                         Inflate(blowIntensity * Time.deltaTime);
@@ -85,19 +76,17 @@ namespace _Game.Scripts.Puzzles
                     }
                     break;
 
-                case 2: // RÍTMICO (Solo infla si coincide con el ritmo + Fuga)
+                case 2:
                     UpdateRhythm();
                     
                     if (blowIntensity > _blowThreshold)
                     {
-                        // Solo inflamos si estamos en la ventana de ritmo ("luz verde")
                         if (_isInRhythmWindow)
                         {
                             Inflate(blowIntensity * Time.deltaTime);
                         }
                         else
                         {
-                            // Opcional: Penalización por soplar fuera de ritmo (desinflar más rápido)
                             Deflate(_leakRate * 2 * Time.deltaTime);
                         }
                     }
@@ -108,13 +97,17 @@ namespace _Game.Scripts.Puzzles
                     break;
             }
 
-            // 3. Aplicar escala y Chequear Victoria/Derrota
             UpdateBalloonVisuals();
             CheckWinCondition();
         }
 
-        // --- LÓGICA DE INFLADO ---
-
+        public override void SetUIVisibility(bool isVisible)
+        {
+            if (_balloonTransform != null) _balloonTransform.gameObject.SetActive(isVisible);
+            if (_targetVisualTransform != null) _targetVisualTransform.gameObject.SetActive(isVisible);
+            if (_rhythmIndicator != null) _rhythmIndicator.SetActive(isVisible && _currentDifficulty == 2);
+        }
+        
         private void Inflate(float amount)
         {
             _currentScale += amount * _sensitivity;

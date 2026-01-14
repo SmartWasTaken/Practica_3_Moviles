@@ -29,9 +29,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _NoiseAmount: 0.0576
-    - _VignettePower: 1.34
-    - _VignetteSmoothness: 0.59
+    - _NoiseAmount: 0.017
+    - _VignettePower: 1.15
+    - _VignetteSmoothness: 0.94
     m_Colors:
     - _VignetteColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

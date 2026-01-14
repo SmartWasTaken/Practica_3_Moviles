@@ -14,21 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_Game.Scripts.Data.LevelConfig
   levelID: 5
   LvlName: Darkness
-  backgroundSprite: {fileID: 21300000, guid: ea52698ec40a92e4281b5e7c949458c7, type: 3}
   puzzlePrefab: {fileID: 7958678473222132216, guid: 66362589360622e448ebf38ab1846623, type: 3}
   variations:
   - variationName: Brightness
     riddleText: It is too dark, maybe you should turn a light on
     timeLimit: 15
     difficultyLevel: 0
-    tutorialRequired: 0
+    tutorialRequired: 9
+    backgroundSprite: {fileID: 21300000, guid: a4fea98e0c8338741b5176247296ac4f, type: 3}
   - variationName: Shake
     riddleText: There is no energy to light up the room, maybe you need more power
     timeLimit: 10
     difficultyLevel: 1
-    tutorialRequired: 0
+    tutorialRequired: 3
+    backgroundSprite: {fileID: 21300000, guid: 3cfb37d2029cc4643938d5506160e929, type: 3}
   - variationName: Friction
     riddleText: Sometimes friction gives you enough energy to light up a room
     timeLimit: 8
     difficultyLevel: 2
-    tutorialRequired: 0
+    tutorialRequired: 7
+    backgroundSprite: {fileID: 21300000, guid: ea52698ec40a92e4281b5e7c949458c7, type: 3}

@@ -14,22 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_Game.Scripts.Data.LevelConfig
   levelID: 2
   LvlName: El globo
-  backgroundColor: {r: 0.4067732, g: 1, b: 0, a: 1}
   puzzlePrefab: {fileID: 4731879461083916151, guid: 1622e6c3be09e6e4c96f5e7227e49cf3, type: 3}
   variations:
   - variationName: Inflar
     riddleText: The balloon needs to be bigger for his interview
     timeLimit: 15
     difficultyLevel: 0
-    tutorialRequired: 0
+    tutorialRequired: 8
+    backgroundSprite: {fileID: 21300000, guid: 6ee80a0a317f4c946908bb15a34644fd, type: 3}
   - variationName: Infla y desinfla
     riddleText: The balloon needs to be bigger for his interview, but he tends to
       deinflate
     timeLimit: 10
     difficultyLevel: 1
-    tutorialRequired: 0
+    tutorialRequired: 8
+    backgroundSprite: {fileID: 21300000, guid: 4c2f57ca9f8aaed49a29dd9990b60ca4, type: 3}
   - variationName: Ritmo
     riddleText: The balloon likes the rythm of life
     timeLimit: 8
     difficultyLevel: 2
-    tutorialRequired: 0
+    tutorialRequired: 8
+    backgroundSprite: {fileID: 21300000, guid: b83241c53fe259e49a0f91ee80bb1ba5, type: 3}

@@ -4,15 +4,16 @@ Shader "Custom/SimpleLiquid"
     {
         _Color ("Liquid Color", Color) = (0, 0.5, 1, 1)
         _SurfaceColor ("Top Surface Color", Color) = (0.5, 0.8, 1, 1)
-        _FillAmount ("Fill Level (World Y)", Float) = 0.0
-        _WobbleX ("Wobble X", Float) = 0.0
-        _WobbleZ ("Wobble Z", Float) = 0.0
+        _FillAmount ("Fill Offset", Float) = 0.0
+        _FillNormal ("Fill Normal (World)", Vector) = (0, 1, 0, 0)
+        _Center ("Object Center (World)", Vector) = (0,0,0,0)
+        _WobbleX ("Wobble Strength", Float) = 0.0
     }
     SubShader
     {
         Tags { "RenderType"="Opaque" "Queue"="Geometry" }
         LOD 100
-        Cull Off // Dibujamos ambas caras para que parezca que tiene volumen
+        Cull Off 
 
         Pass
         {
@@ -35,9 +36,10 @@ Shader "Custom/SimpleLiquid"
 
             float4 _Color;
             float4 _SurfaceColor;
-            float _FillAmount;
+            float _FillAmount;      // Altura relativa
+            float4 _FillNormal;     // Dirección de "Arriba" del líquido
+            float4 _Center;         // Centro de la botella
             float _WobbleX;
-            float _WobbleZ;
 
             v2f vert (appdata v)
             {
@@ -49,23 +51,29 @@ Shader "Custom/SimpleLiquid"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // 1. Calcular el plano de corte con el Wobble
-                // El wobble inclina el plano de corte basado en la posición relativa
-                float offset = (i.worldPos.x * _WobbleX) + (i.worldPos.z * _WobbleZ);
-                float currentLevel = _FillAmount + offset;
+                // 1. Calcular vector desde el centro de la botella al píxel
+                float3 dir = i.worldPos - _Center.xyz;
 
-                // 2. Si el píxel está por encima del nivel del líquido, no lo pintamos
-                if (i.worldPos.y > currentLevel)
+                // 2. Proyectar sobre la "Normal" del líquido (Gravedad inversa)
+                // Esto nos dice qué tan "alto" está el píxel respecto a la gravedad actual
+                float height = dot(dir, normalize(_FillNormal.xyz));
+
+                // 3. Aplicar Wobble basado en la posición horizontal relativa
+                // Calculamos un vector perpendicular a la normal para el wobble
+                float3 tangent = cross(_FillNormal.xyz, float3(0,0,1));
+                float wobbleOffset = dot(dir, tangent) * _WobbleX;
+
+                // 4. Corte
+                // Si la altura del píxel es mayor que el nivel de llenado + wobble -> Fuera
+                if (height > (_FillAmount + wobbleOffset))
                 {
-                    discard; // Recorta lo que sobra
+                    discard; 
                 }
 
-                // 3. Detectar si estamos muy cerca del borde para pintar la "superficie"
-                // Si la distancia al corte es menor a 1.5cm (aprox), es superficie
-                float surfaceDist = currentLevel - i.worldPos.y;
-                
-                // Mezcla suave entre color de superficie y color de fondo
-                float surfaceFactor = step(surfaceDist, 0.015); 
+                // 5. Superficie
+                float surfaceDist = (_FillAmount + wobbleOffset) - height;
+                float surfaceFactor = step(surfaceDist, 0.02); // 2cm de borde
+
                 return lerp(_Color, _SurfaceColor, surfaceFactor);
             }
             ENDCG

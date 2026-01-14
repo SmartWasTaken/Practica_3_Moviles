@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.306}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 38, y: -81}
+  m_AnchoredPosition: {x: 58, y: -90}
   m_SizeDelta: {x: 313.408, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6528322043754795389
@@ -202,7 +202,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Puntuacion
+  m_text: Points
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b22880cc31d2e6e43b751ec03048743f, type: 2}
   m_sharedMaterial: {fileID: 4296170768144919308, guid: b22880cc31d2e6e43b751ec03048743f, type: 2}
@@ -343,7 +343,7 @@ MonoBehaviour:
 
     (Date)
 
-    Date)'
+    (Date)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b22880cc31d2e6e43b751ec03048743f, type: 2}
   m_sharedMaterial: {fileID: 4296170768144919308, guid: b22880cc31d2e6e43b751ec03048743f, type: 2}
@@ -377,7 +377,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0

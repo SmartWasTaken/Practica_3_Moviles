@@ -15,7 +15,7 @@ namespace _Game.Scripts.Data
 
             currentData.entries.Add(newEntry);
 
-            currentData.entries = currentData.entries.OrderByDescending(x => x.score).ToList();
+            currentData.entries = currentData.entries.OrderByDescending(x => x.date).ToList();
 
             string json = JsonUtility.ToJson(currentData);
             PlayerPrefs.SetString($"History_{levelID}", json);
