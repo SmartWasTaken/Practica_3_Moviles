@@ -114,8 +114,14 @@ namespace _Game.Scripts.Core.InputSystem
         {
             if (!_isMicInitialized) return;
 
+            if (!Microphone.IsRecording(_micDevice))
+            {
+                Microphone.Start(_micDevice, true, 10, 44100);
+            }
+
             float[] data = new float[256];
             int micPosition = Microphone.GetPosition(_micDevice) - 256 + 1;
+            
             if (micPosition < 0) return;
 
             _micClip.GetData(data, micPosition);

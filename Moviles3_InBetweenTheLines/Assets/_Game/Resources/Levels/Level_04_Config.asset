@@ -17,19 +17,19 @@ MonoBehaviour:
   puzzlePrefab: {fileID: 5549055593897284762, guid: 712e7f5307922c640ab1e1d68838098c, type: 3}
   variations:
   - variationName: Tensar1
-    riddleText: You need to tighten the rope
+    riddleText: You need to tighten the rope, careful, it tends to break.
     timeLimit: 15
     difficultyLevel: 0
     tutorialRequired: 6
     backgroundSprite: {fileID: 21300000, guid: 96dfb25a5ddbb2440ac90a146e76e0e2, type: 3}
   - variationName: Tensar2
-    riddleText: You need to tighten the rope even more
+    riddleText: You need to tighten the rope even more, remember, it tends to break.
     timeLimit: 10
     difficultyLevel: 1
     tutorialRequired: 6
     backgroundSprite: {fileID: 21300000, guid: b58949e4e9df6c146872d74c7a43ac9a, type: 3}
   - variationName: Tensar3
-    riddleText: You need to tighten the rope even more
+    riddleText: You need to tighten the rope even more.
     timeLimit: 8
     difficultyLevel: 2
     tutorialRequired: 6

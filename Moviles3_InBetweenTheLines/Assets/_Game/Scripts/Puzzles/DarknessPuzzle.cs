@@ -17,10 +17,8 @@ namespace _Game.Scripts.Puzzles
         [SerializeField] private float _rubSensitivity = 0.5f; // Cuánto cuenta cada movimiento de dedo
         [SerializeField] private float _rubEnergyNeeded = 500.0f; // Distancia total a frotar en pantalla
 
-        // ESTADO INTERNO
-        private float _currentEnergy = 0f; // Usado para Var 2 y Var 3
+        private float _currentEnergy = 0f;
         
-        // Simulación Editor
         private float _editorBrightness = 0.5f;
 
         public override void Initialize(LevelManager manager, int difficulty)
@@ -28,12 +26,18 @@ namespace _Game.Scripts.Puzzles
             base.Initialize(manager, difficulty);
             
             _currentEnergy = 0f;
-
-            // Asegurar que el panel empieza negro
             if (_darknessPanel != null)
             {
                 _darknessPanel.color = Color.black;
                 _darknessPanel.gameObject.SetActive(true);
+            }
+        }
+
+        public override void SetUIVisibility(bool isVisible)
+        {
+            if (_darknessPanel != null)
+            {
+                _darknessPanel.gameObject.SetActive(isVisible);
             }
         }
 
@@ -54,10 +58,12 @@ namespace _Game.Scripts.Puzzles
                     break;
             }
         }
+        
         private void CheckBrightness()
         {
             float brightness = GetCurrentBrightness();
-            if (brightness > 0.8f)
+            UpdateDarknessAlpha(1f - brightness); 
+            if (brightness > 0.7f) 
             {
                 WinLevel();
             }
@@ -70,6 +76,7 @@ namespace _Game.Scripts.Puzzles
             #if UNITY_EDITOR
             if (Input.GetKeyDown(KeyCode.Space)) acceleration = new Vector3(3, 3, 3);
             #endif
+            
             if (acceleration.sqrMagnitude >= _shakeThreshold * _shakeThreshold)
             {
                 _currentEnergy += Time.deltaTime * 5f;
@@ -98,7 +105,6 @@ namespace _Game.Scripts.Puzzles
                     rubDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")).magnitude * 10f;
                 }
             #else
-                // Detectar movimiento de dedos
                 if (Input.touchCount > 0)
                 {
                     foreach (Touch t in Input.touches)
@@ -126,7 +132,7 @@ namespace _Game.Scripts.Puzzles
 
         private void WinLevel()
         {
-            if (_darknessPanel != null) _darknessPanel.gameObject.SetActive(false);
+            SetUIVisibility(false);
             CompletePuzzle();
         }
 
@@ -147,7 +153,8 @@ namespace _Game.Scripts.Puzzles
                 if (Input.GetKeyDown(KeyCode.DownArrow)) _editorBrightness -= 0.1f;
                 return Mathf.Clamp01(_editorBrightness);
             #else
-                return Screen.brightness;
+                if (Screen.brightness < 0) return 0f;
+                return Mathf.Clamp01(Screen.brightness);
             #endif
         }
     }

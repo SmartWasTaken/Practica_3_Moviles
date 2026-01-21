@@ -106,7 +106,6 @@ namespace _Game.Scripts.Puzzles
             if (_mainSlider != null) _mainSlider.value = _progressValue;
         }
 
-        // --- LÓGICA CASO 0: CARRERA ---
         private void HandleRaceLogic(bool tap)
         {
             if (tap) _progressValue += 0.1f;
@@ -115,39 +114,29 @@ namespace _Game.Scripts.Puzzles
             if (_progressValue >= 0.99f) CompletePuzzle();
         }
 
-        // --- LÓGICA CASO 1: MANTENER EN ZONA ---
         private void HandleMaintainLogic(bool tap)
         {
-            // 1. FÍSICA DE LA AGUJA (CONTROL)
             if (tap)
             {
                 Debug.Log("Estoy dentro");
-                _needleValue += _tapForce; // Salto seco hacia arriba
+                _needleValue += _tapForce;
             }
-            
-            // Gravedad constante
             _needleValue -= _decaySpeed * Time.deltaTime;
             _needleValue = Mathf.Clamp01(_needleValue);
 
-            // Actualizar posición visual de la aguja (necesario para ver dónde estás)
             UpdateNeedlePosition(_needleValue);
 
-            // 2. LÓGICA DE PROGRESO (ZONA VERDE)
             float minZone = 0.3f;
             float maxZone = 0.7f;
 
             if (_needleValue > minZone && _needleValue < maxZone)
             {
-                // DENTRO: La barra de progreso se llena
                 _progressValue += Time.deltaTime * 0.5f; 
                 if (_fillImage != null) _fillImage.color = Color.green;
             }
             else
             {
-                // FUERA: La barra de progreso baja
-                _progressValue -= Time.deltaTime * 0.25f; 
-                
-                // Feedback visual: Rojo si te pasas, Gris si te caes
+                _progressValue -= Time.deltaTime * 0.25f;
                 if (_fillImage != null) 
                     _fillImage.color = (_needleValue >= maxZone) ? Color.red : Color.gray;
             }
@@ -157,7 +146,6 @@ namespace _Game.Scripts.Puzzles
             if (_progressValue >= 0.99f) CompletePuzzle();
         }
 
-        // --- LÓGICA CASO 2: SEMÁFORO ---
         private void HandleTrafficLogic(bool tap)
         {
             _trafficTimer += Time.deltaTime;
@@ -184,8 +172,6 @@ namespace _Game.Scripts.Puzzles
         {
             if (_needleObject == null || _sliderArea == null) return;
             float width = _sliderArea.rect.width;
-            
-            // Mapeamos 0..1 a la posición X dentro del área
             float xPos = Mathf.Lerp(-width/2f, width/2f, value); 
             _needleObject.anchoredPosition = new Vector2(xPos, _needleObject.anchoredPosition.y);
         }

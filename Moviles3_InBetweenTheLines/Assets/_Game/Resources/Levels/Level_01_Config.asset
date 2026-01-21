@@ -17,19 +17,21 @@ MonoBehaviour:
   puzzlePrefab: {fileID: 1196531482329518414, guid: 72d24e1837c291247856d58d041692f9, type: 3}
   variations:
   - variationName: Liquido
-    riddleText: The water is anxious to get to the core of the earth
-    timeLimit: 15
+    riddleText: The water is anxious to get to the core of the earth.
+    timeLimit: 13
     difficultyLevel: 0
     tutorialRequired: 4
     backgroundSprite: {fileID: 21300000, guid: a4fea98e0c8338741b5176247296ac4f, type: 3}
   - variationName: Viscoso
-    riddleText: The water is anxious to get to the core of the earth
+    riddleText: The water is anxious to get to the core of the earth. It tends to
+      get sticky tho.
     timeLimit: 10
     difficultyLevel: 1
     tutorialRequired: 4
     backgroundSprite: {fileID: 21300000, guid: 3cfb37d2029cc4643938d5506160e929, type: 3}
   - variationName: Gas
-    riddleText: The water is anxious to get to the core of the earth
+    riddleText: The water is anxious to get to the core of the earth, be careful,
+      its' been acting weird.
     timeLimit: 8
     difficultyLevel: 2
     tutorialRequired: 4

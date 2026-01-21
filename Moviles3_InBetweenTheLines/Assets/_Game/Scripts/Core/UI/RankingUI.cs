@@ -16,9 +16,10 @@ namespace _Game.Scripts.Core.UI
             {
                 Destroy(child.gameObject);
             }
-
             ScoreListWrapper history = ScoreManager.LoadScoreHistory(levelID);
             
+            int realHighScore = ScoreManager.GetBestScore(levelID);
+
             for (int i = 0; i < history.entries.Count; i++)
             {
                 ScoreEntry entry = history.entries[i];
@@ -29,8 +30,8 @@ namespace _Game.Scripts.Core.UI
                 Vector3 pos = newRow.transform.localPosition;
                 pos.z = 0;
                 newRow.transform.localPosition = pos;
-
-                bool isHighest = (i == 0); 
+                bool isHighest = (entry.score == realHighScore); 
+                
                 newRow.Setup(entry.date, entry.score, isHighest);
             }
         }

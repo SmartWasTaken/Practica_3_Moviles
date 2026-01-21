@@ -74,7 +74,6 @@ namespace _Game.Scripts.Core.UI
                 }
             }
 
-            // Conteo de Puntos
             if (scoreEarned > 0)
             {
                 _sequence.AppendInterval(0.2f);

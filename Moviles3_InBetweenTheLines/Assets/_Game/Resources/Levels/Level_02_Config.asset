@@ -17,20 +17,21 @@ MonoBehaviour:
   puzzlePrefab: {fileID: 419981192526610459, guid: 5a823ec31332d654f841fa8cb59ea6b4, type: 3}
   variations:
   - variationName: Este
-    riddleText: The sun is rising up, but he feels alone
+    riddleText: The sun is rising up, but he feels alone. Keep in mind, tilting is
+      not only to the left or right.
     timeLimit: 15
     difficultyLevel: 0
-    tutorialRequired: 1
+    tutorialRequired: 4
     backgroundSprite: {fileID: 21300000, guid: a4fea98e0c8338741b5176247296ac4f, type: 3}
   - variationName: Oeste
-    riddleText: The sun is setting, but it doesn't want to go alone
+    riddleText: The sun is setting, but it doesn't want to go alone.
     timeLimit: 10
     difficultyLevel: 1
-    tutorialRequired: 1
+    tutorialRequired: 4
     backgroundSprite: {fileID: 21300000, guid: 3cfb37d2029cc4643938d5506160e929, type: 3}
   - variationName: Trayectoria
-    riddleText: The sun wants you to fill in his journey
+    riddleText: The sun wants you to fill in his journey.
     timeLimit: 8
     difficultyLevel: 2
-    tutorialRequired: 1
+    tutorialRequired: 4
     backgroundSprite: {fileID: 21300000, guid: ea52698ec40a92e4281b5e7c949458c7, type: 3}

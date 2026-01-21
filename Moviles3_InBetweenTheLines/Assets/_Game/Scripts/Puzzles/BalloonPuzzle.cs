@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using _Game.Scripts.Core;
+using _Game.Scripts.Core.InputSystem;
 
 namespace _Game.Scripts.Puzzles
 {
@@ -10,6 +11,7 @@ namespace _Game.Scripts.Puzzles
         [SerializeField] private Transform _targetVisualTransform; // La esfera fantasma que indica la meta
         [SerializeField] private Renderer _balloonRenderer;
         [SerializeField] private GameObject _rhythmIndicator; // Objeto que marca el ritmo (Dificultad 2)
+        [SerializeField] private GameObject _noozle;
 
         [Header("Configuración de Inflado")]
         [SerializeField] private float _sensitivity = 10.0f; // Qué tanto infla un soplido
@@ -106,6 +108,7 @@ namespace _Game.Scripts.Puzzles
             if (_balloonTransform != null) _balloonTransform.gameObject.SetActive(isVisible);
             if (_targetVisualTransform != null) _targetVisualTransform.gameObject.SetActive(isVisible);
             if (_rhythmIndicator != null) _rhythmIndicator.SetActive(isVisible && _currentDifficulty == 2);
+            if (_noozle!=null) _noozle.gameObject.SetActive(isVisible);
         }
         
         private void Inflate(float amount)
@@ -116,7 +119,7 @@ namespace _Game.Scripts.Puzzles
         private void Deflate(float amount)
         {
             _currentScale -= amount;
-            if (_currentScale < 0.2f) _currentScale = 0.2f; // No puede ser más pequeño que el inicio
+            if (_currentScale < 0.2f) _currentScale = 0.2f;
         }
 
         private void UpdateBalloonVisuals()
@@ -129,22 +132,17 @@ namespace _Game.Scripts.Puzzles
 
         private void CheckWinCondition()
         {
-            // 1. CONDICIÓN DE DERROTA: EXPLOSIÓN
             if (_currentScale > _maxScale)
             {
                 ExplodeBalloon();
                 return;
             }
-
-            // 2. CONDICIÓN DE VICTORIA: TAMAÑO CORRECTO
-            // Verificamos si estamos dentro del rango (Target +/- Tolerancia)
+            
             bool isInRange = Mathf.Abs(_currentScale - _targetScale) <= _targetTolerance;
 
             if (isInRange)
             {
                 _holdTimer += Time.deltaTime;
-                
-                // Feedback visual: Poner verde si está en rango
                 if(_balloonRenderer) _balloonRenderer.material.color = Color.green;
 
                 if (_holdTimer >= 0.5f)
@@ -155,10 +153,8 @@ namespace _Game.Scripts.Puzzles
             else
             {
                 _holdTimer = 0f;
-                // Feedback visual: Color normal (rojo/azul) o de tensión si está muy grande
                 if(_balloonRenderer)
                 {
-                    // Interpolamos de Azul (pequeño) a Rojo (a punto de explotar)
                     float tension = _currentScale / _maxScale;
                     _balloonRenderer.material.color = Color.Lerp(Color.blue, Color.red, tension);
                 }
@@ -168,28 +164,16 @@ namespace _Game.Scripts.Puzzles
         private void ExplodeBalloon()
         {
             _hasExploded = true;
-            if (_balloonTransform != null) _balloonTransform.gameObject.SetActive(false); // Desaparece
-            
-            // Aquí llamarías a tu sistema de Game Over o reinicio
+            if (_balloonTransform != null) _balloonTransform.gameObject.SetActive(false);
             Debug.Log("¡BOOM! El globo explotó.");
-            
-            // En tu juego real, aquí lanzarías el evento de fallo o reiniciarías el nivel
-            // _levelManager.FailLevel(); // Si tienes algo así
+            FailPuzzle();
         }
 
-        // --- LÓGICA DE RITMO (DIFICULTAD 2) ---
         private void UpdateRhythm()
         {
             if (_rhythmIndicator == null) return;
-
-            // Oscilación senoidal para marcar el ritmo
-            // Usamos Time.time * velocidad
             float pulse = Mathf.Sin(Time.time * _rhythmSpeed); 
-            
-            // Definimos que la "ventana buena" es cuando el pulso está alto (> 0.5)
             _isInRhythmWindow = pulse > 0.0f;
-
-            // Feedback visual del ritmo (escalar una bolita o cambiar color)
             float visualScale = Mathf.Lerp(0.5f, 1.5f, (pulse + 1f) / 2f);
             _rhythmIndicator.transform.localScale = Vector3.one * visualScale;
             
@@ -197,12 +181,10 @@ namespace _Game.Scripts.Puzzles
             if (r) r.material.color = _isInRhythmWindow ? Color.green : Color.gray;
         }
 
-        // --- LÓGICA DE MICRÓFONO ---
-
         private void InitMicrophone()
         {
             #if UNITY_EDITOR
-                _isMicInitialized = true; // En editor usaremos teclas
+                _isMicInitialized = true;
             #else
                 if (Microphone.devices.Length > 0)
                 {
@@ -220,35 +202,19 @@ namespace _Game.Scripts.Puzzles
         private float GetBlowIntensity()
         {
             #if UNITY_EDITOR
-                // SIMULACIÓN EN PC: Mantener ESPACIO es soplar
-                if (Input.GetKey(KeyCode.Space)) return 1.0f;
-                return 0f;
+            if (Input.GetKey(KeyCode.Space)) return 1.0f;
+            return 0f;
             #else
-                if (!_isMicInitialized || _micClip == null) return 0f;
-
-                // Analizamos los últimos datos de audio para sacar el volumen promedio (RMS)
-                int sampleSize = 128;
-                float[] samples = new float[sampleSize];
-                int startPosition = Microphone.GetPosition(_micDevice) - (sampleSize + 1);
-                
-                if (startPosition < 0) return 0f;
-
-                _micClip.GetData(samples, startPosition);
-
-                float sum = 0;
-                for (int i = 0; i < sampleSize; i++)
+                // En móvil, simplemente preguntamos al InputManager
+                if (InputManager.Instance != null)
                 {
-                    sum += samples[i] * samples[i]; // Cuadrado de la amplitud
+                    // Clamp 0-1 para normalizar el valor y que no infle de golpe
+                    return Mathf.Clamp01(InputManager.Instance.MicLoudness);
                 }
-                
-                float rmsValue = Mathf.Sqrt(sum / sampleSize); // Raíz cuadrada del promedio
-                
-                // Amplificamos el valor porque el RMS suele ser muy bajo (0.01 - 0.1)
-                return Mathf.Clamp01(rmsValue * 10f); 
+                return 0f; 
             #endif
         }
         
-        // Limpieza del micro al salir
         private void OnDestroy()
         {
             #if !UNITY_EDITOR

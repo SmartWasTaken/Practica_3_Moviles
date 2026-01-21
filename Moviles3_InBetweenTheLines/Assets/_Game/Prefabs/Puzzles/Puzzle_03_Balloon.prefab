@@ -596,6 +596,7 @@ MonoBehaviour:
   _targetVisualTransform: {fileID: 2148150052992979747}
   _balloonRenderer: {fileID: 6808798729416231099}
   _rhythmIndicator: {fileID: 1429523611120596912}
+  noozle: {fileID: 8795205505692188652}
   _sensitivity: 1
   _blowThreshold: 0.1
   _maxScale: 2.5

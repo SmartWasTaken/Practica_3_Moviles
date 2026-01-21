@@ -37,7 +37,9 @@ namespace _Game.Scripts.Data
         {
             var data = LoadScoreHistory(levelID);
             if (data.entries.Count > 0)
-                return data.entries[0].score;
+            {
+                return data.entries.Max(x => x.score);
+            }
             return 0;
         }
     }
